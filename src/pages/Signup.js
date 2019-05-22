@@ -58,26 +58,28 @@ class Signup extends Component {
 
     render () {
         return (
-          <div className="container" style={{width: '350px'}}>
-            
+        <div class="row justify-content-center  border-top border-top-2 border-primary">
+            <div class="col-12 col-md-5 col-xl-4 my-5">
+                <h1 class="display-4 text-center mb-3">Sign up</h1>
+                <p class="text-muted text-center mb-5">Human resource manager toolkit.</p>
             <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
                     <TextInput name="name" id="name" required
+                        placeholder="Name"
                         value={this.state.name}
                         onChange={this.handleChange}
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="surname">Surname</label>
-                    <TextInput name="surname" id="surname" minLength="4"
+                    <TextInput name="surname" id="surname" minLength="3"
+                        placeholder="Surname"
                         value={this.state.surname}
                         onChange={this.handleChange}
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="username">Email</label>
-                    <TextInput name="username" id="username" type="email" 
+                    <TextInput name="username" id="username" type="email"
+                        placeholder="E-mail"
                         validator={validator.isEmail} 
                         errorMessage={{validator:"Please enter a valid email"}}
                         value={this.state.username}
@@ -85,8 +87,8 @@ class Signup extends Component {
                         />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
                     <TextInput name="password" id="password" type="password" required 
+                        placeholder="Password"
                         pattern="(?=.*[A-Z]).{6,}"
                         errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
                         value={this.state.password}
@@ -94,8 +96,8 @@ class Signup extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
                     <TextInput name="confirmPassword" id="confirmPassword" type="password" required 
+                        placeholder="Confirm Password"
                         validator={this.matchPassword}
                         errorMessage={{required:"Confirm password is required", validator: "Password does not match"}}
                         value={this.state.confirmPassword}
@@ -103,8 +105,8 @@ class Signup extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="corporateName">Company name</label>
                     <TextInput name="corporateName" id="corporateName" required
+                        placeholder="Company name"
                         value={this.state.company}
                         onChange={this.handleChange}
                     />
@@ -113,10 +115,13 @@ class Signup extends Component {
                     <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Submit</button>
                 </div>
             </ValidationForm>
-            <p>Already have account? 
-             <Link to={"/"}> Login</Link>
-            </p>
-          </div>
+          <div class="text-center">
+              <small class="text-muted text-center">
+                Don't have an account yet? <Link to={"/"}> Sign up</Link>.
+              </small>
+            </div>
+            </div>
+        </div>
         )
     }
 }

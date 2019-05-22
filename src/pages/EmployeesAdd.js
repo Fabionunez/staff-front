@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-import { withAuth } from '../providers/AuthProvider';
+// import { withAuth } from '../providers/AuthProvider';
 import employeeService from '../lib/employee-service';
+import Navbar from '../components/Navbar';
 
 
 class EmployeesAdd extends Component {
@@ -72,9 +73,21 @@ class EmployeesAdd extends Component {
 
     render () {
         return (
-          <div className="container" style={{width: '350px'}}>
+        <div>
+          <Navbar />
+          <div  className="main-content p-4">
+            <div class="pb-4">
+                <h6 class="header-pretitle">
+                Edit
+                </h6>
+                <h1 class="header-title">
+                Employee
+                </h1>
+            </div>  
+
+            <div className="container p-0 m-0" >
             
-            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
+            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <TextInput name="name" id="name" required
@@ -108,13 +121,17 @@ class EmployeesAdd extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Add a new employee</button>
+                    <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Add employee</button>
                 </div>
             </ValidationForm>
 
-          </div>
+
+            </div>
+            </div>
+        </div>
         )
     }
 }
 
-export default withAuth(EmployeesAdd);
+export default EmployeesAdd;
+// export default withAuth(EmployeesAdd);

@@ -25,7 +25,21 @@ class EmployeeService {
   employeeView(id) {
     return this.auth.get(`/employee/edit/${id}`)
     .then(response => response.data)
+
+  }
+
   
+  employeeUpdate(user) {
+    const { id, name, surname, username, password } = user;
+    return this.auth.put(`/employee/edit`, {id, name, surname, username, password })
+    .then(response => response.data)
+
+  }
+
+  employeeDelete(id) {
+    return this.auth.delete(`/employee/delete/${id}`)
+    .then(response => response.data)
+
   }
 
 
