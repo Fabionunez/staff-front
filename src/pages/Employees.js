@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
-class Private extends Component {
+class Employees extends Component {
   render() {
     const { user } = this.props
     return (
@@ -11,4 +11,4 @@ class Private extends Component {
   }
 }
 
-export default withAuth(Private);
+export default withAuth(Employees);

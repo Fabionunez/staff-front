@@ -118,11 +118,11 @@ class Signup extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-primary"  type="submit" >Submit</button>
+                    <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Submit</button>
                 </div>
             </ValidationForm>
             <p>Already have account? 
-             <Link to={"/login"}> Login</Link>
+             <Link to={"/"}> Login</Link>
             </p>
           </div>
         )
