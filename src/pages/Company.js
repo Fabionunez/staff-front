@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
-import axios from 'axios';
 
 
-class Signup extends Component {
+class Company extends Component {
     state = {
         name: "",
         surname: "",
@@ -24,14 +23,13 @@ class Signup extends Component {
 
     handleSubmit = (e, formData, inputs) => {
         e.preventDefault();
-        alert(JSON.stringify(formData, null, 2));
+
         const name = this.state.firstName;
         const surname = this.state.surname;
         const username = this.state.username;
         const password = this.state.password;
         const corporateName = this.state.corporateName;
 
-    
         this.props.signup({ name, surname, corporateName, username, password })
           .then(() => {
             this.setState({
@@ -44,15 +42,6 @@ class Signup extends Component {
             });
           })
           .catch(error => console.log(error) )
-
-
-      //   axios.post('http://localhost:5000/signup', { name, surname, corporateName, username, password } )
-      //   .then( (apiResponse) => {
-      //     console.log("inserted")
-      // })
-      // .catch( (err) => console.log(err))
-
-
           
     }
 
@@ -66,13 +55,13 @@ class Signup extends Component {
 
     render () {
         return (
-          <div>
+          <div className="container" style={{width: '350px'}}>
             
             <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name</label>
                     <TextInput name="name" id="name" required
-                        value={this.state.firstName}
+                        value={this.state.name}
                         onChange={this.handleChange}
                     />
                 </div>
@@ -129,4 +118,4 @@ class Signup extends Component {
     }
 }
 
-export default withAuth(Signup);
+export default withAuth(Company);

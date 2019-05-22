@@ -7,15 +7,19 @@ class Navbar extends Component {
     const { isLogged, user, logout } = this.props;
     const { username } = user;
     if (isLogged) {
-      return <div>
-        <p>username: { username }</p>
-        <p onClick={logout}>Logout</p>
-      </div>
+      return <nav className="navbar navbar-light bg-dark">
+        <ul  className="navbar-nav">
+          <li className="nav-link">username: { username }</li>
+          <li className="nav-link" onClick={logout}>Logout</li>
+        </ul>
+      </nav>
     } else {
-      return <div>
-        <Link to='/login'>Login</Link>
-        <Link to='/signup'>Signup</Link>
-      </div>
+      return <nav className="navbar navbar-light bg-light">
+        <ul className="navbar-nav">
+          <li className="nav-link"><Link to='/login'>Login</Link></li>
+          <li className="nav-link"><Link to='/signup'>Signup</Link></li>
+        </ul> 
+      </nav>
     }
   
   }

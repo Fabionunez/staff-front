@@ -7,15 +7,17 @@ import Private from './pages/Private';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import AuthProvider from './providers/AuthProvider';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 class App extends Component {
   render() {
     return (
-      <AuthProvider>
+      <AuthProvider><Navbar />
         <div className="container">
           <h1>Module 3 boilerplate</h1>
-          <Navbar />
+          
           <Switch>
             <AnonRoute path="/signup" component={Signup} />
             <AnonRoute path="/login" component={Login} />

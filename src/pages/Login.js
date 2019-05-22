@@ -1,36 +1,80 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
+import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
+
+
 class Login extends Component {
   state = {
-    username: "",
-    password: "",
+      username: "",
+      password: ""
   }
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-    const { username, password } = this.state
-
-    this.props.login({ username, password })
-      .then(() => {})
-      .catch( error => console.log(error) )
+  handleChange = (e) => {
+      this.setState({
+          [e.target.name]: e.target.value
+      })
   }
 
-  handleChange = (event) => {  
-    const {name, value} = event.target;
-    this.setState({[name]: value});
+  handleSubmit = (e, formData, inputs) => {
+      e.preventDefault();
+
+      const username = this.state.username;
+      const password = this.state.password;
+
+
+      this.props.login({ username, password })
+        .then(() => {
+          this.setState({
+            username: "",
+            password: ""
+          });
+        })
+        .catch(error => console.log(error) )
+        
   }
 
-  render() {
-    const { username, password } = this.state;
-    return (
-      <form onSubmit={this.handleFormSubmit}>
-        <label>Username:</label>
-        <input type="text" name="username" value={username} onChange={this.handleChange}/>
-        <label>Password:</label>
-        <input type="password" name="password" value={password} onChange={this.handleChange} />
-        <input type="submit" value="Login" />
-      </form>
-    )
+  handleErrorSubmit = (e, formData, errorInputs) => {
+      console.error(errorInputs)
+  }
+
+  matchPassword = (value) => {
+      return value && value === this.state.password;   
+  }
+
+  render () {
+      return (
+        <div className="container" style={{width: '350px'}}>
+          
+          <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
+              <div className="form-group">
+                  <TextInput name="username" id="username" type="email" 
+                      placeholder="E-mail"
+                      validator={validator.isEmail} 
+                      errorMessage={{validator:"Please enter a valid email"}}
+                      value={this.state.username}
+                      onChange={this.handleChange}
+                      />
+              </div>
+              <div className="form-group">
+                  <TextInput name="password" id="password" type="password" required 
+                      placeholder="Password"
+                      pattern="(?=.*[A-Z]).{6,}"
+                      errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
+                      value={this.state.password}
+                      onChange={this.handleChange}
+                  />
+              </div>
+              <div className="form-group">
+                  <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Submit</button>
+              </div>
+          </ValidationForm>
+          <p>Do you need an account? 
+           <Link to={"/signup"}> Signup</Link>
+          </p>
+        </div>
+      )
   }
 }
 
