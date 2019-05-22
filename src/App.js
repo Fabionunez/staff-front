@@ -4,6 +4,9 @@ import PrivateRoute from './components/PrivateRoute';
 import AnonRoute from './components/AnonRoute';
 import Navbar from './components/Navbar';
 import Employees from './pages/Employees';
+import EmployeesAdd from './pages/EmployeesAdd';
+import EmployeesEdit from './pages/EmployeesEdit';
+
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import AuthProvider from './providers/AuthProvider';
@@ -15,12 +18,14 @@ class App extends Component {
   render() {
     return (
       <AuthProvider>
-        {/* <Navbar /> */}
+        <Navbar />
         <div className="container mt-3">          
           <Switch>
             <AnonRoute path="/signup" component={Signup} />
             <AnonRoute exact path="/" component={Login} />
             <PrivateRoute path="/employees" component={Employees} />
+            <PrivateRoute path="/employee/add" component={EmployeesAdd} />
+            <PrivateRoute path="/employee/edit/:id" component={EmployeesEdit} />
           </Switch>
         </div>
       </AuthProvider>

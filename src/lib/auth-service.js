@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import Employees from '../pages/Employees';
 
 class AuthService {
   constructor() {
@@ -29,6 +30,7 @@ class AuthService {
     return this.auth.get('/me')
     .then(response => response.data)
   }
+
 }
 
 const authService = new AuthService();

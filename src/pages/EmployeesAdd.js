@@ -1,17 +1,35 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
+import employeeService from '../lib/employee-service';
 
-class Signup extends Component {
+
+class EmployeesAdd extends Component {
     state = {
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        corporateName: ""
+      username: "", //mail
+      password: "",
+      name: "",
+      surname: "",
+      title: "",
+      companyPhone: "",
+      dateStart: "",
+      birthDate: "",
+      gender: "",
+      nationality: "",
+      phone: "",
+      photo: "",
+      identificationNumber: "",
+      socialSecurityNumber: "",
+      address: "",
+      city: "",
+      postalCode: "",
+      state: "",
+      country: "",
+      emergencyContact: "",
+      emergencyPhone: "",
+      managerID: "",
+      companyID: ""
     }
 
     handleChange = (e) => {
@@ -27,23 +45,19 @@ class Signup extends Component {
         const surname = this.state.surname;
         const username = this.state.username;
         const password = this.state.password;
-        const corporateName = this.state.corporateName;
 
-    
-        this.props.signup({ name, surname, corporateName, username, password })
+
+        employeeService.employeeAdd({ name, surname, username, password })
           .then(() => {
             this.setState({
               name: "",
               surname: "",
               email: "",
-              password: "",
-              confirmPassword: "",
-              corporateName: ""
+              password: ""
             });
+            window.location.href="/employees";
           })
           .catch(error => console.log(error) )
-
-
 
           
     }
@@ -86,7 +100,7 @@ class Signup extends Component {
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password</label>
-                    <TextInput name="password" id="password" type="password" required 
+                    <TextInput name="password" id="password" type="text" required 
                         pattern="(?=.*[A-Z]).{6,}"
                         errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
                         value={this.state.password}
@@ -94,31 +108,13 @@ class Signup extends Component {
                     />
                 </div>
                 <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <TextInput name="confirmPassword" id="confirmPassword" type="password" required 
-                        validator={this.matchPassword}
-                        errorMessage={{required:"Confirm password is required", validator: "Password does not match"}}
-                        value={this.state.confirmPassword}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="corporateName">Company name</label>
-                    <TextInput name="corporateName" id="corporateName" required
-                        value={this.state.company}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Submit</button>
+                    <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Add a new employee</button>
                 </div>
             </ValidationForm>
-            <p>Already have account? 
-             <Link to={"/"}> Login</Link>
-            </p>
+
           </div>
         )
     }
 }
 
-export default withAuth(Signup);
+export default withAuth(EmployeesAdd);
