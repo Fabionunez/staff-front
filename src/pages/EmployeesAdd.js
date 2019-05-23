@@ -88,15 +88,15 @@ class EmployeesAdd extends Component {
           <div  className="main-content">
 
             <TopBar {...user} />
-            <div className="p-4">
-                <div className="pb-4">
+            <div className="main-content-padding">
+                <div className="header-body mb-5">
                     <h6 className="header-pretitle">Add</h6>
                     <h1 className="header-title">Employee</h1>
                 </div>  
 
                 <div className="container p-0 m-0" >
                 
-                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
+                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '350px'}}>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
                         <TextInput name="name" id="name" required
@@ -136,7 +136,7 @@ class EmployeesAdd extends Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group pt-3">
                         <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Add employee</button>
                     </div>
                 </ValidationForm>

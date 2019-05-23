@@ -118,8 +118,8 @@ class EmployeesEdit extends Component {
           <Navbar />
           <div  className="main-content">
             <TopBar {...user} />
-            <div className="p-4">
-            <div class="pb-4">
+            <div className="main-content-padding">
+            <div class="header-body mb-5">
                 <h6 class="header-pretitle">
                 Edit
                 </h6>
@@ -130,7 +130,7 @@ class EmployeesEdit extends Component {
 
             <div className="container p-0 m-0" >
 
-                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
+                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '350px'}}>
                     <input type="hidden" id="id" name="id" value={this.props.match.params.id} />
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
@@ -197,8 +197,8 @@ class EmployeesEdit extends Component {
                             }/>
                     </div>
                     <div className="form-group pt-2">
-                        <button className="btn btn-primary mr-3" style={{width: '55%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
-                        <Link to="/employees"  className="btn btn-secondary" style={{width: '40%'}}>Cancel</Link>
+                        <button className="btn btn-primary mr-3" style={{width: '100%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
+                        
                     </div>
                 </ValidationForm>
 

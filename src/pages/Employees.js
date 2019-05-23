@@ -3,6 +3,8 @@ import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
 import IconSearch from 'react-feather/dist/icons/search';
+import IconAdd from 'react-feather/dist/icons/plus';
+
 import EmployeeItem from '../components/employees/EmployeeItem';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
@@ -73,7 +75,7 @@ class Employees extends Component {
 
           <TopBar {...user} />
 
-          <div className="p-4">
+          <div className="main-content-padding">
 
 
 
@@ -87,7 +89,7 @@ class Employees extends Component {
                   </h1>
                   </div>
                   <div className="col-auto">
-                    <Link to="/employee/add" className="btn btn-primary">Add employee </Link>
+                    <Link to="/employee/add" className="btn btn-primary"><IconAdd size={20} color="white" className="mr-2" />Add employee </Link>
                   </div>
                 </div>
               </div>
@@ -98,7 +100,7 @@ class Employees extends Component {
               <div className="card-header">
                 <form>
                   <div className="input-group input-group-flush input-group-merge">
-                    <input onChange={this.updateKeyword} type="search" className="form-control form-control-prepended search" placeholder="Search" />
+                    <input onChange={this.updateKeyword} type="search" class="form-control form-control-prepended search" placeholder="Search" />
                     <div className="input-group-prepend">
                       <div className="input-group-text">
                         <IconSearch size={18} />

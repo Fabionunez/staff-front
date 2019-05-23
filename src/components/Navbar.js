@@ -6,6 +6,8 @@ import IconBriefcase from 'react-feather/dist/icons/briefcase';
 import IconGrid from 'react-feather/dist/icons/grid';
 import IconSettings from 'react-feather/dist/icons/settings';
 import IconLogout from 'react-feather/dist/icons/log-out';
+import IconStats from 'react-feather/dist/icons/pie-chart';
+
 import Logo from '../img/logo.svg';
 
 class Navbar extends Component {
@@ -56,14 +58,20 @@ class Navbar extends Component {
                   <IconUsers size={25} className="pr-2"/> Employees
                 </Link>
               </li>
-              <li className="nav-item">
+              {user.isAdmin ? <li className="nav-item">
                 <Link to="/company" className="nav-link ">
                   <IconBriefcase size={25} className="pr-2"/> Company
+                </Link>
+              </li> : ""}
+              
+              <li className="nav-item">
+                <Link to="/teams" className="nav-link">
+                  <IconGrid size={25} className="pr-2"/> Teams <span className="badge badge-soft-success ml-auto">soon</span>
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/teams" className="nav-link">
-                  <IconGrid size={25} className="pr-2"/> Teams <span className="badge badge-soft-success ml-auto">soon</span>
+                  <IconStats size={25} className="pr-2"/> Stats <span className="badge badge-soft-success ml-auto">soon</span>
                 </Link>
               </li>
               <li className="nav-item">

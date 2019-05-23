@@ -101,15 +101,15 @@ class Company extends Component {
           <div  className="main-content">
 
             <TopBar {...user} />
-            <div className="p-4">
-                <div className="pb-4">
+            <div className="main-content-padding">
+                <div className="header-body mb-5">
                     <h6 className="header-pretitle">Edit</h6>
                     <h1 className="header-title">Company</h1>
                 </div>  
 
                 <div className="container p-0 m-0" >
 
-            {this.state.confirm ? <div class="alert alert-success" role="alert">Changes saved!</div> : ""}
+            {this.state.confirm ? <div class="alert alert-success" role="alert" style={{"max-width": '350px'}}>Changes saved!</div> : ""}
             
             <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
                 <div className="form-group">
@@ -171,7 +171,7 @@ class Company extends Component {
                 </div>
 
                 <div className="form-group">
-                    <button className="btn btn-primary" type="submit" >Save changes</button>
+                    <button className="btn btn-primary" type="submit" style={{width: '100%'}} >Save changes</button>
                 </div>
             </ValidationForm>
             </div>
