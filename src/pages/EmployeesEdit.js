@@ -4,6 +4,7 @@ import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
 import employeeService from '../lib/employee-service';
 import Navbar from '../components/Navbar';
+import TopBar from '../components/TopBar';
 
 
 class EmployeesEdit extends Component {
@@ -95,7 +96,9 @@ class EmployeesEdit extends Component {
         return (
         <div>
           <Navbar />
-          <div  className="main-content p-4">
+          <div  className="main-content">
+            <TopBar />
+            <div className="p-4">
             <div class="pb-4">
                 <h6 class="header-pretitle">
                 Edit
@@ -147,6 +150,7 @@ class EmployeesEdit extends Component {
                 </ValidationForm>
 
                 </div>
+            </div>
             </div>
         </div>
         )

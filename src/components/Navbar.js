@@ -6,7 +6,7 @@ import IconBriefcase from 'react-feather/dist/icons/briefcase';
 import IconGrid from 'react-feather/dist/icons/grid';
 import IconSettings from 'react-feather/dist/icons/settings';
 import IconLogout from 'react-feather/dist/icons/log-out';
-
+import Logo from '../img/logo.svg';
 
 class Navbar extends Component {
   // render() {
@@ -40,20 +40,20 @@ class Navbar extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <a className="navbar-brand" href="index.html">
-            <img src="https://dashkit.goodthemes.co/assets/img/logo.svg" className="navbar-brand-img mx-auto" alt="..." />
+            <img src={Logo} className="navbar-brand-img mx-auto" alt="..." />
           </a>
           <div className="navbar-user d-md-none">
             <div className="dropdown">        
               <a href="/#" id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div className="avatar avatar-sm avatar-online">
-                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-1.jpg" className="avatar-img rounded-circle" alt="..." />
+                <div className="avatar avatar-sm">
+                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-5.jpg" className="avatar-img rounded-circle" alt="..." />
                 </div>
               </a>
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
                 <a href="profile-posts.html" className="dropdown-item">Profile</a>
                 <a href="settings.html" className="dropdown-item">Company</a>
                 <hr className="dropdown-divider" />
-                <a href="sign-in.html" onClick={logout} className="dropdown-item">Logout</a>
+                <a href="sign-in.html"  onClick={logout} className="dropdown-item">Logout</a>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@ class Navbar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <a href="/#" className="nav-link" onClick={logout}>
+                <a href="javascript:;" className="nav-link" onClick={logout}>
                   <IconLogout size={25} className="pr-2"/> Logout
                 </a>
               </li>

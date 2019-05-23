@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
+import Logo from '../img/logo.svg';
 
 
 class Login extends Component {
@@ -46,7 +47,9 @@ class Login extends Component {
   render () {
       return (
         <div class="row justify-content-center  border-top border-top-2 border-primary">
-            <div class="col-12 col-md-5 col-xl-4 my-5">
+            <div class="col-12 col-md-5 col-xl-4 my-5 text-center">
+                <img src={Logo} className="text-center pb-5" style={{width:"300px"}} alt="..." />
+
                 <h1 class="display-4 text-center mb-3">Sign in</h1>
                 <p class="text-muted text-center mb-5">Enter in your private dashboard.</p>
             <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
@@ -74,7 +77,7 @@ class Login extends Component {
             </ValidationForm>
             <div class="text-center">
               <small class="text-muted text-center">
-                Don't have an account yet? <Link to={"/signup"}> Sign up</Link>.
+                Are you a human resource manager? <Link to={"/signup"}> Sign up</Link>.
               </small>
             </div>
             </div>

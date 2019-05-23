@@ -6,6 +6,7 @@ import IconAdd from 'react-feather/dist/icons/plus';
 import IconSearch from 'react-feather/dist/icons/search';
 import EmployeeItem from '../components/employees/EmployeeItem';
 import Navbar from '../components/Navbar';
+import TopBar from '../components/TopBar';
 
 
 class Employees extends Component {
@@ -50,44 +51,48 @@ class Employees extends Component {
 
       <div>
         <Navbar />
-        <div  className="main-content p-4">
-          <div class="pb-4">
-            <h6 class="header-pretitle">
-              All
-            </h6>
-            <h1 class="header-title">
-              Employees
-            </h1>
-          </div>
-          <div className="card">
+        <div className="main-content">
 
-            <div class="card-header">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h4 class="card-header-title">
-                    <Link  to="/employee/add">Add employee </Link>
-                  </h4>
-                </div>
-              </div>
+          <TopBar />
+
+          <div className="p-4">
+            <div class="pb-4">
+              <h6 class="header-pretitle">
+                All
+              </h6>
+              <h1 class="header-title">
+                Employees
+              </h1>
             </div>
-            <div class="card-header">
-              <form>
-                <div class="input-group input-group-flush input-group-merge">
-                  <input type="search" class="form-control form-control-prepended search" placeholder="Search" />
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
-                      <IconSearch size={18} />
-                    </div>
+            <div className="card">
+              <div class="card-header">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <h4 class="card-header-title">
+                      <Link  to="/employee/add">Add employee </Link>
+                    </h4>
                   </div>
                 </div>
-              </form>
-            </div>
-            <div class="card-body">
-              <ul class="list-group list-group-flush list my-n3">   
-              {
-                this.state.employees.map(employee => <EmployeeItem  {...employee} handleDeleting={this.handleDeleting}  getAllEmployees={this.getAllEmployees} />)
-              }
-              </ul>
+              </div>
+              <div class="card-header">
+                <form>
+                  <div class="input-group input-group-flush input-group-merge">
+                    <input type="search" class="form-control form-control-prepended search" placeholder="Search" />
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <IconSearch size={18} />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush list my-n3">   
+                {
+                  this.state.employees.map(employee => <EmployeeItem  {...employee} handleDeleting={this.handleDeleting}  getAllEmployees={this.getAllEmployees} />)
+                }
+                </ul>
+              </div>
             </div>
           </div>
         </div>

@@ -1,3 +1,5 @@
+
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -14135,3 +14137,27 @@ button:focus {
 .form-control-lg+.select2-container--default .select2-selection--multiple .select2-selection__choice {
   line-height: 1.59375rem
 }
+
+
+
+
+/* Custom CSS */
+
+#topbar{
+  display: fixed !important;
+position: -webkit-sticky; /* Safari */
+position: sticky;
+top: 0;
+z-index: 1000;
+}
+
+#topbar .avatar-sm {
+ font-family: Cerebri Sans, sans-serif;
+ font-size: .9375rem;
+ font-weight: bold;
+ color:#6e84a3;
+}
+
+#topbar .avatar-sm:hover {
+  color:#12263f;
+ }

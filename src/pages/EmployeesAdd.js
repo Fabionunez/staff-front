@@ -4,6 +4,7 @@ import validator from 'validator';
 // import { withAuth } from '../providers/AuthProvider';
 import employeeService from '../lib/employee-service';
 import Navbar from '../components/Navbar';
+import TopBar from '../components/TopBar';
 
 
 class EmployeesAdd extends Component {
@@ -75,59 +76,63 @@ class EmployeesAdd extends Component {
         return (
         <div>
           <Navbar />
-          <div  className="main-content p-4">
-            <div class="pb-4">
-                <h6 class="header-pretitle">
-                Edit
-                </h6>
-                <h1 class="header-title">
-                Employee
-                </h1>
-            </div>  
 
-            <div className="container p-0 m-0" >
-            
-            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <TextInput name="name" id="name" required
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="surname">Surname</label>
-                    <TextInput name="surname" id="surname" minLength="4"
-                        value={this.state.surname}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="username">Email</label>
-                    <TextInput name="username" id="username" type="email" 
-                        validator={validator.isEmail} 
-                        errorMessage={{validator:"Please enter a valid email"}}
-                        value={this.state.username}
-                        onChange={this.handleChange}
+         
+          <div  className="main-content">
+
+            <TopBar />
+            <div className="p-4">
+                <div class="pb-4">
+                    <h6 class="header-pretitle">
+                    Add
+                    </h6>
+                    <h1 class="header-title">
+                    Employee
+                    </h1>
+                </div>  
+
+                <div className="container p-0 m-0" >
+                
+                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
+                    <div className="form-group">
+                        <label htmlFor="name">Name</label>
+                        <TextInput name="name" id="name" required
+                            value={this.state.name}
+                            onChange={this.handleChange}
                         />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <TextInput name="password" id="password" type="text" required 
-                        pattern="(?=.*[A-Z]).{6,}"
-                        errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Add employee</button>
-                </div>
-            </ValidationForm>
-
-
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="surname">Surname</label>
+                        <TextInput name="surname" id="surname" minLength="4"
+                            value={this.state.surname}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="username">Email</label>
+                        <TextInput name="username" id="username" type="email" 
+                            validator={validator.isEmail} 
+                            errorMessage={{validator:"Please enter a valid email"}}
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password</label>
+                        <TextInput name="password" id="password" type="text" required 
+                            pattern="(?=.*[A-Z]).{6,}"
+                            errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Add employee</button>
+                    </div>
+                </ValidationForm>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
         )
     }

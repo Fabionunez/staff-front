@@ -21,7 +21,7 @@ export default function EmployeeItem(props) {
               </p>
             </div>
             <div className="col-auto">
-              <a className="btn btn-sm btn-white" href="javascript:;" onClick={ () => props.handleDeleting(props._id)} >
+              <a className="btn btn-sm btn-white" href="javascript:;" onClick={ () => props.handleDeleting(props._id)} title="Delete employee" >
                 <IconDelete color="grey" size={15} />
               </a>
             </div>
