@@ -46,14 +46,16 @@ class EmployeesAdd extends Component {
         const name = this.state.name;
         const surname = this.state.surname;
         const username = this.state.username;
+        const title = this.state.title;
         const password = this.state.password;
 
 
-        employeeService.employeeAdd({ name, surname, username, password })
+        employeeService.employeeAdd({ name, surname, title, username, password })
           .then(() => {
             this.setState({
               name: "",
               surname: "",
+              title:"",
               email: "",
               password: ""
             });
@@ -105,6 +107,13 @@ class EmployeesAdd extends Component {
                         <label htmlFor="surname">Surname</label>
                         <TextInput name="surname" id="surname" minLength="4"
                             value={this.state.surname}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <TextInput name="title" id="title" minLength="4"
+                            value={this.state.title}
                             onChange={this.handleChange}
                         />
                     </div>

@@ -11,7 +11,9 @@ import TopBar from '../components/TopBar';
 
 class Employees extends Component {
   state = {
-    employees: []
+    employees: [],
+    keyword: "",
+    filterEmployees: []
   }
   getAllEmployees = () =>{
     employeeService.employeesList()
@@ -36,20 +38,26 @@ class Employees extends Component {
     })
     .catch((err) => console.log(err))
 
-
   }
 
 
 
+  updateKeyword = (event) => {
+    this.setState({keyword: event.target.value});
+  }
+
+
   render() {
+    const filteredArray = this.state.employees.filter( employee => {
+      return (employee.name + ' ' + employee.surname).toLowerCase().includes(this.state.keyword.toLowerCase())
+    })
+
+    const {  user } = this.props; //to pass if it's admin
+    
     return (
 
+      <div>    
 
-
-
-
-
-      <div>
         <Navbar />
         <div className="main-content">
 
@@ -58,7 +66,7 @@ class Employees extends Component {
           <div className="p-4">
             <div class="pb-4">
               <h6 class="header-pretitle">
-                All
+                All {user.isAdmin === true ? "true" : "false"}
               </h6>
               <h1 class="header-title">
                 Employees
@@ -77,7 +85,7 @@ class Employees extends Component {
               <div class="card-header">
                 <form>
                   <div class="input-group input-group-flush input-group-merge">
-                    <input type="search" class="form-control form-control-prepended search" placeholder="Search" />
+                    <input onChange={this.updateKeyword} type="search" class="form-control form-control-prepended search" placeholder="Search" />
                     <div class="input-group-prepend">
                       <div class="input-group-text">
                         <IconSearch size={18} />
@@ -89,7 +97,7 @@ class Employees extends Component {
               <div class="card-body">
                 <ul class="list-group list-group-flush list my-n3">   
                 {
-                  this.state.employees.map(employee => <EmployeeItem  {...employee} handleDeleting={this.handleDeleting}  getAllEmployees={this.getAllEmployees} />)
+                  filteredArray.map(employee => <EmployeeItem  {...employee} handleDeleting={this.handleDeleting}  getAllEmployees={this.getAllEmployees} />)
                 }
                 </ul>
               </div>
@@ -102,5 +110,3 @@ class Employees extends Component {
 }
 
 export default withAuth(Employees);
-
-{/* <p key={employee._id}><Link to={`/employee/edit/${employee._id}`} > {employee.name} {employee.surname}</Link> <a href="javascript:;" onClick={() => this.handleDeleting(employee._id)} >Delete</a></p>) */}

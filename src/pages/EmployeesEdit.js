@@ -42,6 +42,7 @@ class EmployeesEdit extends Component {
             this.setState( {
                 name: employee.name,
                 surname: employee.surname,
+                title: employee.title,
                 username: employee.username
             });
           //console.log(employee.name);
@@ -62,12 +63,13 @@ class EmployeesEdit extends Component {
         const name = this.state.name;
         const surname = this.state.surname;
         const username = this.state.username;
+        const title = this.state.title;
         const password = this.state.password;
         const id = this.props.match.params.id;
 
         //console.log(name, surname, username, password, id);
 
-        employeeService.employeeUpdate({ id, name, surname, username, password })
+        employeeService.employeeUpdate({ id, name, surname, title, username, password })
         .then((employee) => {
             // this.setState( {
             //     name: employee.name,
@@ -123,6 +125,13 @@ class EmployeesEdit extends Component {
                         <label htmlFor="surname">Surname</label>
                         <TextInput name="surname" id="surname" minLength="4"
                             value={this.state.surname}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="title">Title</label>
+                        <TextInput name="title" id="title" minLength="4"
+                            value={this.state.title}
                             onChange={this.handleChange}
                         />
                     </div>

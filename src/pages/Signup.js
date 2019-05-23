@@ -40,6 +40,7 @@ class Signup extends Component {
               password: "",
               confirmPassword: "",
               corporateName: ""
+
             });
           })
           .catch(error => console.log(error) )
@@ -120,7 +121,7 @@ class Signup extends Component {
             </ValidationForm>
           <div class="text-center">
               <small class="text-muted text-center">
-                Don't have an account yet? <Link to={"/"}> Sign up</Link>.
+                Already have an account? <Link to={"/"}> Sign in</Link>.
               </small>
             </div>
             </div>

@@ -17,8 +17,8 @@ class EmployeeService {
 
 
   employeeAdd(user) {
-    const { name, surname, username, password } = user;
-    return this.auth.post('/employee/add', { name, surname, username, password })
+    const { name, surname, title, username, password } = user;
+    return this.auth.post('/employee/add', { name, surname, title, username, password })
       .then(({ data }) => data);
   }
 
@@ -30,8 +30,8 @@ class EmployeeService {
 
   
   employeeUpdate(user) {
-    const { id, name, surname, username, password } = user;
-    return this.auth.put(`/employee/edit`, {id, name, surname, username, password })
+    const { id, name, surname, title, username, password } = user;
+    return this.auth.put(`/employee/edit`, {id, name, surname, title, username, password })
     .then(response => response.data)
 
   }
