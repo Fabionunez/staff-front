@@ -30,8 +30,8 @@ class EmployeeService {
 
   
   employeeUpdate(user) {
-    const { id, name, surname, title, username, password } = user;
-    return this.auth.put(`/employee/edit`, {id, name, surname, title, username, password })
+    const { id, name, surname, title, imageUrl, username, password } = user;
+    return this.auth.put(`/employee/edit`, {id, name, surname, title, imageUrl, username, password })
     .then(response => response.data)
 
   }
@@ -42,6 +42,10 @@ class EmployeeService {
 
   }
 
+  imageUpload(file) {
+    return this.auth.post('/employee/image', file)
+    .then(({data}) => data)
+  }
 
 }
 

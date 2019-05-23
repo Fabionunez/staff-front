@@ -9,54 +9,36 @@ import IconLogout from 'react-feather/dist/icons/log-out';
 import Logo from '../img/logo.svg';
 
 class Navbar extends Component {
-  // render() {
-  //   const { isLogged, user, logout } = this.props;
-  //   const { username } = user;
-  //   if (isLogged) {
-  //     return <nav className="navbar navbar-light bg-light">
-  //       <ul  className="navbar-nav">
-  //         <li className="nav-link">username: { username }</li>
-  //         <li className="nav-link" onClick={logout}>Logout</li>
-  //       </ul>
-  //     </nav>
-  //   } else {
-  //     return <nav className="navbar navbar-light bg-light">
-  //       <ul className="navbar-nav">
-  //         <li className="nav-link"><Link to='/'>Login</Link></li>
-  //         <li className="nav-link"><Link to='/signup'>Signup</Link></li>
-  //       </ul> 
-  //     </nav>
-  //   }
-  // }
+
+  handleSidebar = () =>{
+    console.log("sidebar");
+  }
 
   render(){
-    const { isLogged, user, logout } = this.props;
-    const { username } = user;
+    const {user, logout } = this.props;
 
     return(
     <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
         <div className="container-fluid">
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+
+          <button className="navbar-toggler" type="button" data-toggle="collapse" onClick={this.handleSidebar} data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <a className="navbar-brand" href="index.html">
+
+          <Link to="/" className="navbar-brand" href="index.html">
             <img src={Logo} className="navbar-brand-img mx-auto" alt="..." />
-          </a>
+          </Link>
+
           <div className="navbar-user d-md-none">
             <div className="dropdown">        
-              <a href="/#" id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <Link  to={`/employee/edit/${user._id}`} id="sidebarIcon" className="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div className="avatar avatar-sm">
-                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-5.jpg" className="avatar-img rounded-circle" alt="..." />
+                  <img src={user.imageUrl} className="avatar-img rounded-circle" alt="..." />
                 </div>
-              </a>
-              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-                <a href="profile-posts.html" className="dropdown-item">Profile</a>
-                <a href="settings.html" className="dropdown-item">Company</a>
-                <hr className="dropdown-divider" />
-                <a href="sign-in.html"  onClick={logout} className="dropdown-item">Logout</a>
-              </div>
+              </Link>
             </div>
           </div>
+          
           <div className="collapse navbar-collapse" id="sidebarCollapse">
             <form className="mt-4 mb-3 d-md-none">
               <div className="input-group input-group-rounded input-group-merge">
@@ -85,7 +67,7 @@ class Navbar extends Component {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to="" className="nav-link">
+                <Link to={`/employee/edit/${user._id}`} className="nav-link">
                   <IconSettings size={25} className="pr-2"/> Settings
                 </Link>
               </li>
@@ -103,3 +85,11 @@ class Navbar extends Component {
 }
 
 export default withAuth(Navbar);
+
+
+              {/* <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
+                <a href="profile-posts.html" className="dropdown-item">Profile</a>
+                <a href="settings.html" className="dropdown-item">Company</a>
+                <hr className="dropdown-divider" />
+                <a href="sign-in.html"  onClick={logout} className="dropdown-item">Logout</a>
+              </div> */}

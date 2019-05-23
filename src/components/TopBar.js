@@ -1,15 +1,20 @@
 import React from 'react'
+import { withAuth } from '../providers/AuthProvider';
+import {Link} from 'react-router-dom';
 
-export default function TopBar() {
+
+
+
+function TopBar(props) {
   return (
       <nav className="navbar navbar-expand-md navbar-light d-none d-md-flex" id="topbar">
         <div className="container-fluid d-flex justify-content-end">
             <div className="navbar-user  pr-5">
               <div className="dropdown">
-                <a href="#" className="avatar avatar-sm dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-5.jpg" alt="..." className="avatar-img rounded-circle  mr-2" />
-                  María
-                </a>
+                <Link to={`/employee/edit/${props._id}`} className="avatar avatar-sm dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <img src={props.imageUrl} alt="..." className="avatar-img rounded-circle  mr-2" />
+                  {props.name}
+                </Link>
                 <div className="dropdown-menu dropdown-menu-right">
                   <a href="profile-posts.html" className="dropdown-item">Profile</a>
                   <a href="settings.html" className="dropdown-item">Settings</a>
@@ -22,3 +27,5 @@ export default function TopBar() {
       </nav>
   )
 }
+
+export default withAuth(TopBar);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
-// import { withAuth } from '../providers/AuthProvider';
+import { withAuth } from '../providers/AuthProvider';
 import employeeService from '../lib/employee-service';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
@@ -59,7 +59,8 @@ class EmployeesAdd extends Component {
               email: "",
               password: ""
             });
-            window.location.href="/employees";
+            // window.location.href="/employees";
+            this.props.history.push("/employees")
           })
           .catch(error => console.log(error) )
 
@@ -75,6 +76,10 @@ class EmployeesAdd extends Component {
     }
 
     render () {
+        const {  user } = this.props; 
+
+        //console.log(this.props)
+
         return (
         <div>
           <Navbar />
@@ -82,15 +87,11 @@ class EmployeesAdd extends Component {
          
           <div  className="main-content">
 
-            <TopBar />
+            <TopBar {...user} />
             <div className="p-4">
-                <div class="pb-4">
-                    <h6 class="header-pretitle">
-                    Add
-                    </h6>
-                    <h1 class="header-title">
-                    Employee
-                    </h1>
+                <div className="pb-4">
+                    <h6 className="header-pretitle">Add</h6>
+                    <h1 className="header-title">Employee</h1>
                 </div>  
 
                 <div className="container p-0 m-0" >
@@ -147,5 +148,5 @@ class EmployeesAdd extends Component {
     }
 }
 
-export default EmployeesAdd;
+export default withAuth(EmployeesAdd);
 // export default withAuth(EmployeesAdd);

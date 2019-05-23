@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
-import IconAdd from 'react-feather/dist/icons/plus';
 import IconSearch from 'react-feather/dist/icons/search';
 import EmployeeItem from '../components/employees/EmployeeItem';
 import Navbar from '../components/Navbar';
@@ -32,9 +31,6 @@ class Employees extends Component {
     employeeService.employeeDelete(id)
     .then((response) =>{
       this.getAllEmployees();
-
-        
-     console.log("Deleting")
     })
     .catch((err) => console.log(err))
 
@@ -46,14 +42,28 @@ class Employees extends Component {
     this.setState({keyword: event.target.value});
   }
 
+  userCanDelete = () => {
+    let {  user } = this.props; //to pass if it's admin
+    let isAdmin = user.isAdmin;
+    if(isAdmin){
+      return isAdmin;
+    }else{
+      return null;
+    }  
+  }
+
+  
+
 
   render() {
     const filteredArray = this.state.employees.filter( employee => {
       return (employee.name + ' ' + employee.surname).toLowerCase().includes(this.state.keyword.toLowerCase())
     })
 
-    const {  user } = this.props; //to pass if it's admin
+    const {  user } = this.props; 
     
+    
+
     return (
 
       <div>    
@@ -61,43 +71,51 @@ class Employees extends Component {
         <Navbar />
         <div className="main-content">
 
-          <TopBar />
+          <TopBar {...user} />
 
           <div className="p-4">
-            <div class="pb-4">
-              <h6 class="header-pretitle">
-                All {user.isAdmin === true ? "true" : "false"}
-              </h6>
-              <h1 class="header-title">
-                Employees
-              </h1>
-            </div>
-            <div className="card">
-              <div class="card-header">
-                <div class="row align-items-center">
-                  <div class="col">
-                    <h4 class="card-header-title">
-                      <Link  to="/employee/add">Add employee </Link>
-                    </h4>
+
+
+
+
+              <div className="header-body header-employees">
+                <div className="row align-items-center">
+                  <div className="col">
+                  <h6 className="header-pretitle">All</h6>
+                  <h1 className="header-title">
+                    Employees <span className="badge badge-soft-secondary" style={{"font-size":"10px"}}>{this.state.employees.length}</span>
+                  </h1>
+                  </div>
+                  <div className="col-auto">
+                    <Link to="/employee/add" className="btn btn-primary">Add employee </Link>
                   </div>
                 </div>
               </div>
-              <div class="card-header">
+
+
+            <div className="card">
+
+              <div className="card-header">
                 <form>
-                  <div class="input-group input-group-flush input-group-merge">
-                    <input onChange={this.updateKeyword} type="search" class="form-control form-control-prepended search" placeholder="Search" />
-                    <div class="input-group-prepend">
-                      <div class="input-group-text">
+                  <div className="input-group input-group-flush input-group-merge">
+                    <input onChange={this.updateKeyword} type="search" className="form-control form-control-prepended search" placeholder="Search" />
+                    <div className="input-group-prepend">
+                      <div className="input-group-text">
                         <IconSearch size={18} />
                       </div>
                     </div>
                   </div>
                 </form>
               </div>
-              <div class="card-body">
-                <ul class="list-group list-group-flush list my-n3">   
+              <div className="card-body">
+                <ul className="list-group list-group-flush list my-n3">   
                 {
-                  filteredArray.map(employee => <EmployeeItem  {...employee} handleDeleting={this.handleDeleting}  getAllEmployees={this.getAllEmployees} />)
+                  filteredArray.map(employee => <EmployeeItem  
+                                                  {...employee} 
+                                                  handleDeleting={this.handleDeleting}  
+                                                  getAllEmployees={this.getAllEmployees}
+                                                  userCanDelete={this.userCanDelete}
+                                                    />)
                 }
                 </ul>
               </div>

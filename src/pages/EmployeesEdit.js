@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
+import { ValidationForm, TextInput, FileInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
+import { Link } from 'react-router-dom';
+
 import employeeService from '../lib/employee-service';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
@@ -30,7 +32,9 @@ class EmployeesEdit extends Component {
       country: "",
       emergencyContact: "",
       emergencyPhone: "",
-      managerID: ""
+      managerID: "",
+      imageUrl: "",
+      submitDisabled: false
     }
 
 
@@ -43,7 +47,8 @@ class EmployeesEdit extends Component {
                 name: employee.name,
                 surname: employee.surname,
                 title: employee.title,
-                username: employee.username
+                username: employee.username,
+                imageUrl: employee.imageUrl
             });
           //console.log(employee.name);
           //window.location.href="/employees";
@@ -59,27 +64,20 @@ class EmployeesEdit extends Component {
 
     handleSubmit = (e, formData, inputs) => {
         e.preventDefault();
-        //alert(JSON.stringify(formData, null, 2));
+
         const name = this.state.name;
         const surname = this.state.surname;
         const username = this.state.username;
         const title = this.state.title;
         const password = this.state.password;
         const id = this.props.match.params.id;
+        const imageUrl = this.state.imageUrl;
 
-        //console.log(name, surname, username, password, id);
 
-        employeeService.employeeUpdate({ id, name, surname, title, username, password })
+        employeeService.employeeUpdate({ id, name, surname, imageUrl, title, username, password })
         .then((employee) => {
-            // this.setState( {
-            //     name: employee.name,
-            //     surname: employee.surname,
-            //     username: employee.username
-            
-            // });
-            // console.log(employee.name);
-            //console.log("redirecting");
-            window.location.href="/employees";
+            this.props.history.push("/employees")
+
         })
         .catch(error => console.log(error) )
 
@@ -94,12 +92,32 @@ class EmployeesEdit extends Component {
         return value && value === this.state.password;   
     }
 
+    fileOnchange = (event) => {
+      const file = event.target.files[0];
+      const uploadData = new FormData()
+      uploadData.append('photo', file)
+
+      this.setState({submitDisabled: true})
+  
+      employeeService.imageUpload(uploadData)
+      .then((imageUrl) => {
+        this.setState({
+          imageUrl,
+          submitDisabled: false,
+          submitText: "Save changes"
+        })
+      })
+      .catch((error) => console.log(error))
+    }
+
     render () {
+      const {  user } = this.props; 
+
         return (
         <div>
           <Navbar />
           <div  className="main-content">
-            <TopBar />
+            <TopBar {...user} />
             <div className="p-4">
             <div class="pb-4">
                 <h6 class="header-pretitle">
@@ -154,7 +172,33 @@ class EmployeesEdit extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Save changes</button>
+                        <label htmlFor="username">Email</label>
+                        <TextInput name="username" id="username" type="email" 
+                            validator={validator.isEmail} 
+                            errorMessage={{validator:"Please enter a valid email"}}
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="imageUrl">Profile image</label>
+                        <FileInput 
+                            name="imageUrl" 
+                            id="imageUrl" 
+                            required
+                            onChange={this.fileOnchange} 
+                            fileType={["jpg", "png", "jpeg"]}
+                            maxFileSize="1000 kb" 
+                            errorMessage={
+                                { required: "Please upload a file", 
+                                fileType:"Only pdf and excel is allowed", 
+                                maxFileSize: "Max file size is 1000 kb"
+                                }
+                            }/>
+                    </div>
+                    <div className="form-group pt-2">
+                        <button className="btn btn-primary mr-3" style={{width: '55%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
+                        <Link to="/employees"  className="btn btn-secondary" style={{width: '40%'}}>Cancel</Link>
                     </div>
                 </ValidationForm>
 

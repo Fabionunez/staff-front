@@ -3,17 +3,53 @@ import { Link } from 'react-router-dom';
 import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
+import Navbar from '../components/Navbar';
+import TopBar from '../components/TopBar';
+import companyService from '../lib/company-service';
 
 
 class Company extends Component {
     state = {
-        name: "",
-        surname: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        corporateName: ""
+      tradeName: "",
+      corporateName: "",
+      taxIdNumber: "",
+      address: "",
+      city: "",
+      postalCode: "",
+      province: "",
+      country: ""
     }
+
+
+    componentDidMount(){
+      
+      const { user } = this.props
+
+
+      companyService.companyView(user._id)
+      .then((company) => {
+
+          this.setState( {
+            tradeName: company.tradeName,
+            corporateName: company.corporateName,
+            taxIdNumber: company.taxIdNumber,
+            address: company.address,
+            city: company.city,
+            postalCode: company.postalCode,
+            province: company.province,
+            country: company.country,
+            confirm: false
+          });
+
+
+
+      })
+      .catch(error => console.log(error) )
+    }
+
+
+
+
 
     handleChange = (e) => {
         this.setState({
@@ -24,22 +60,23 @@ class Company extends Component {
     handleSubmit = (e, formData, inputs) => {
         e.preventDefault();
 
-        const name = this.state.firstName;
-        const surname = this.state.surname;
-        const username = this.state.username;
-        const password = this.state.password;
+        const tradeName = this.state.tradeName;
         const corporateName = this.state.corporateName;
+        const taxIdNumber = this.state.taxIdNumber;
+        const address = this.state.address;
+        const city = this.state.city;
+        const postalCode = this.state.postalCode;
+        const province = this.state.province;  
+        const country = this.state.country;  
+        
 
-        this.props.signup({ name, surname, corporateName, username, password })
+        companyService.companyUpdate({tradeName, corporateName, taxIdNumber, address, city, postalCode, province, country})
           .then(() => {
-            this.setState({
-              name: "",
-              surname: "",
-              email: "",
-              password: "",
-              confirmPassword: "",
-              corporateName: ""
-            });
+            window.scroll(0, window.pageYOffset - this.props.scrollStepInPx)
+            this.props.history.push("/company")
+            this.setState({confirm:true})
+
+
           })
           .catch(error => console.log(error) )
           
@@ -54,66 +91,93 @@ class Company extends Component {
     }
 
     render () {
+        const {  user } = this.props; 
+
         return (
-          <div className="container" style={{width: '350px'}}>
+        <div>
+          <Navbar />
+
+         
+          <div  className="main-content">
+
+            <TopBar {...user} />
+            <div className="p-4">
+                <div className="pb-4">
+                    <h6 className="header-pretitle">Edit</h6>
+                    <h1 className="header-title">Company</h1>
+                </div>  
+
+                <div className="container p-0 m-0" >
+
+            {this.state.confirm ? <div class="alert alert-success" role="alert">Changes saved!</div> : ""}
             
-            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
+            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <TextInput name="name" id="name" required
-                        value={this.state.name}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="surname">Surname</label>
-                    <TextInput name="surname" id="surname" minLength="4"
-                        value={this.state.surname}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="username">Email</label>
-                    <TextInput name="username" id="username" type="email" 
-                        validator={validator.isEmail} 
-                        errorMessage={{validator:"Please enter a valid email"}}
-                        value={this.state.username}
-                        onChange={this.handleChange}
-                        />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <TextInput name="password" id="password" type="password" required 
-                        pattern="(?=.*[A-Z]).{6,}"
-                        errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="confirmPassword">Confirm Password</label>
-                    <TextInput name="confirmPassword" id="confirmPassword" type="password" required 
-                        validator={this.matchPassword}
-                        errorMessage={{required:"Confirm password is required", validator: "Password does not match"}}
-                        value={this.state.confirmPassword}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="corporateName">Company name</label>
+                    <label htmlFor="corporateName">Corporate name</label>
                     <TextInput name="corporateName" id="corporateName" required
-                        value={this.state.company}
+                        value={this.state.corporateName}
                         onChange={this.handleChange}
                     />
                 </div>
                 <div className="form-group">
-                    <button className="btn btn-primary"  type="submit" >Submit</button>
+                    <label htmlFor="tradeName">Trade name</label>
+                    <TextInput name="tradeName" id="tradeName" 
+                        value={this.state.tradeName}
+                        onChange={this.handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="taxIdNumber">Tax ID number</label>
+                    <TextInput name="taxIdNumber" id="taxIdNumber" 
+                        value={this.state.taxIdNumber}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="address">Adress</label>
+                    <TextInput name="address" id="address" 
+                        value={this.state.address}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="postalCode">Postal code</label>
+                    <TextInput name="postalCode" id="postalCode" 
+                        value={this.state.postalCode}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="city">City</label>
+                    <TextInput name="city" id="city" 
+                        value={this.state.city}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="province">Province</label>
+                    <TextInput name="province" id="province" 
+                        value={this.state.province}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="country">Country</label>
+                    <TextInput name="country" id="country" 
+                        value={this.state.country}
+                        onChange={this.handleChange}
+                    />
+                </div>
+
+                <div className="form-group">
+                    <button className="btn btn-primary" type="submit" >Save changes</button>
                 </div>
             </ValidationForm>
-            <p>Already have account? 
-             <Link to={"/login"}> Login</Link>
-            </p>
+            </div>
+            </div>
           </div>
+        </div>
         )
     }
 }
