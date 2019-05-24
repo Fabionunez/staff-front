@@ -69,7 +69,8 @@ class Teams extends Component {
 
       <div>    
 
-        <Navbar />
+         <Navbar pathname={this.props.location.pathname} />
+
         <div className="main-content">
 
           <TopBar {...user} />

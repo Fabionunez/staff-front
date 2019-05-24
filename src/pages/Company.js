@@ -29,6 +29,12 @@ class Company extends Component {
       companyService.companyView(user._id)
       .then((company) => {
 
+        if(company === null){
+
+            this.props.history.push("/404")
+
+        }else{
+
           this.setState( {
             tradeName: company.tradeName,
             corporateName: company.corporateName,
@@ -41,7 +47,7 @@ class Company extends Component {
             confirm: false
           });
 
-
+        }
 
       })
       .catch(error => console.log(error) )
@@ -95,7 +101,8 @@ class Company extends Component {
 
         return (
         <div>
-          <Navbar />
+         <Navbar pathname={this.props.location.pathname} />
+
 
          
           <div  className="main-content">

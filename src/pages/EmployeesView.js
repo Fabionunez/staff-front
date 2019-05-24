@@ -5,13 +5,11 @@ import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
 import employeeService from '../lib/employee-service';
-import companyService from '../lib/company-service';
-
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
 
 
-class EmployeesEdit extends Component {
+class EmployeesView extends Component {
     state = {
       username: "", //mail
       password: "",
@@ -41,22 +39,6 @@ class EmployeesEdit extends Component {
 
 
     componentDidMount(){
-
-        // check if the user is the admin of the company to let him edit
-        // or is the user editing his own profile
-
-        let {  user } = this.props; 
-
-        console.log(user._id)
-
-        companyService.companyView(user._id)
-            .then((company) =>{
-                console.log(company)
-            })
-            .catch((err) => console.log(err))
-
-
-        
         const { id } = this.props.match.params
 
         employeeService.employeeView(id)
@@ -130,17 +112,16 @@ class EmployeesEdit extends Component {
 
     render () {
       const {  user } = this.props; 
-      
-        
+
         return (
         <div>
-          <Navbar pathname={this.props.location.pathname} />
+          <Navbar />
           <div  className="main-content">
             <TopBar {...user} />
             <div className="main-content-padding">
             <div class="header-body mb-5">
                 <h6 class="header-pretitle">
-                Edit
+                View
                 </h6>
                 <h1 class="header-title">
                 Employee
@@ -229,4 +210,4 @@ class EmployeesEdit extends Component {
     }
 }
 
-export default withAuth(EmployeesEdit);
+export default withAuth(EmployeesView);

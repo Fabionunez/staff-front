@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
 import IconSearch from 'react-feather/dist/icons/search';
 import IconAdd from 'react-feather/dist/icons/plus';
-
 import EmployeeItem from '../components/employees/EmployeeItem';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
@@ -54,6 +53,8 @@ class Employees extends Component {
     }  
   }
 
+
+
   
 
 
@@ -70,7 +71,7 @@ class Employees extends Component {
 
       <div>    
 
-        <Navbar />
+      <Navbar pathname={this.props.location.pathname} />
         <div className="main-content">
 
           <TopBar {...user} />
@@ -115,7 +116,14 @@ class Employees extends Component {
                 <ul className="list-group list-group-flush list my-n3">   
                 {
                   filteredArray.map(employee => <EmployeeItem  
-                                                  {...employee} 
+                                                  name={employee.name}
+                                                  surname={employee.surname}
+                                                  title={employee.title}
+                                                  idItem={employee._id}
+                                                  sessionId={user._id}
+                                                  imageUrl={employee.imageUrl}
+                                                  isItenAdmin={employee.isAdmin}
+                                                  isAdmin={user.isAdmin}
                                                   handleDeleting={this.handleDeleting}  
                                                   getAllEmployees={this.getAllEmployees}
                                                   userCanDelete={this.userCanDelete}

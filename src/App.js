@@ -5,6 +5,8 @@ import AnonRoute from './components/AnonRoute';
 import Employees from './pages/Employees';
 import EmployeesAdd from './pages/EmployeesAdd';
 import EmployeesEdit from './pages/EmployeesEdit';
+import EmployeesView from './pages/EmployeesView';
+
 import Company from './pages/Company';
 import Teams from './pages/Teams';
 import Stats from './pages/Stats';
@@ -29,6 +31,7 @@ class App extends Component {
             <PrivateRoute path="/employees" component={Employees} />
             <PrivateRoute path="/employee/add" component={EmployeesAdd} />
             <PrivateRoute path="/employee/edit/:id" component={EmployeesEdit} />
+            <PrivateRoute path="/employee/view/:id" component={EmployeesView} />
             <PrivateRoute path="/company" component={Company} />
             <PrivateRoute path="/teams" component={Teams} />
             <PrivateRoute path="/stats" component={Stats} />

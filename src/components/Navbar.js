@@ -17,6 +17,11 @@ class Navbar extends Component {
   }
 
   render(){
+
+    const pathname = this.props.pathname;
+
+    console.log(pathname);
+    
     const {user, logout } = this.props;
 
     return(
@@ -54,19 +59,19 @@ class Navbar extends Component {
             </form>
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link active" to="/employees" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
+                <Link className={pathname === "/employees" ? "nav-link active" : "nav-link"} to="/employees" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
                   <IconUsers size={25} className="pr-2"/> Employees
                 </Link>
               </li>
               {user.isAdmin ? <li className="nav-item">
-                <Link to="/company" className="nav-link ">
+                <Link to="/company" className={pathname === "/company" ? "nav-link active" : "nav-link"}>
                   <IconBriefcase size={25} className="pr-2"/> Company
                 </Link>
               </li> : ""}
               
               {user.isAdmin ? 
               <li className="nav-item">
-                <Link to="/teams" className="nav-link">
+                <Link to="/teams" className={pathname === "/teams" ? "nav-link active" : "nav-link"}>
                   <IconGrid size={25} className="pr-2"/> Teams <span className="badge badge-soft-success ml-auto">soon</span>
                 </Link>
               </li>
@@ -74,14 +79,14 @@ class Navbar extends Component {
 
               {user.isAdmin ?
               <li className="nav-item">
-                <Link to="/stats" className="nav-link">
+                <Link to="/stats" className={pathname === "/stats" ? "nav-link active" : "nav-link"}>
                   <IconStats size={25} className="pr-2"/> Stats <span className="badge badge-soft-success ml-auto">soon</span>
                 </Link>
               </li>
               : ""}
 
               <li className="nav-item">
-                <Link to={`/employee/edit/${user._id}`} className="nav-link">
+                <Link to={`/employee/edit/${user._id}`} className={pathname === `/employee/edit/${user._id}` ? "nav-link active" : "nav-link"}>
                   <IconSettings size={25} className="pr-2"/> Settings
                 </Link>
               </li>
