@@ -64,16 +64,22 @@ class Navbar extends Component {
                 </Link>
               </li> : ""}
               
+              {user.isAdmin ? 
               <li className="nav-item">
                 <Link to="/teams" className="nav-link">
                   <IconGrid size={25} className="pr-2"/> Teams <span className="badge badge-soft-success ml-auto">soon</span>
                 </Link>
               </li>
+              : ""}
+
+              {user.isAdmin ?
               <li className="nav-item">
-                <Link to="/teams" className="nav-link">
+                <Link to="/stats" className="nav-link">
                   <IconStats size={25} className="pr-2"/> Stats <span className="badge badge-soft-success ml-auto">soon</span>
                 </Link>
               </li>
+              : ""}
+
               <li className="nav-item">
                 <Link to={`/employee/edit/${user._id}`} className="nav-link">
                   <IconSettings size={25} className="pr-2"/> Settings

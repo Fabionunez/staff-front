@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
 import IconSearch from 'react-feather/dist/icons/search';
 import IconAdd from 'react-feather/dist/icons/plus';
-
 import EmployeeItem from '../components/employees/EmployeeItem';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
 
 
-class Employees extends Component {
+class Teams extends Component {
   state = {
     employees: [],
     keyword: "",
@@ -85,43 +84,23 @@ class Employees extends Component {
                   <div className="col">
                   <h6 className="header-pretitle">All</h6>
                   <h1 className="header-title">
-                    Employees <span className="badge badge-soft-secondary" style={{"font-size":"10px"}}>{this.state.employees.length}</span>
+                    Teams 
                   </h1>
                   </div>
-                  {user.isAdmin ?
+                  {/* {user.isAdmin ?
                   <div className="col-auto">
                     <Link to="/employee/add" className="btn btn-primary"><IconAdd size={20} color="white" className="mr-2" />Add employee </Link>
                   </div>
-                  :""}
+                  :""} */}
                 </div>
               </div>
 
 
             <div className="card">
-
-              <div className="card-header">
-                <form>
-                  <div className="input-group input-group-flush input-group-merge">
-                    <input onChange={this.updateKeyword} type="search" class="form-control form-control-prepended search" placeholder="Search" />
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <IconSearch size={18} />
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
               <div className="card-body">
-                <ul className="list-group list-group-flush list my-n3">   
-                {
-                  filteredArray.map(employee => <EmployeeItem  
-                                                  {...employee} 
-                                                  handleDeleting={this.handleDeleting}  
-                                                  getAllEmployees={this.getAllEmployees}
-                                                  userCanDelete={this.userCanDelete}
-                                                    />)
-                }
-                </ul>
+                <div class="alert alert-secondary" role="alert">
+                    Soon you will be able to organize your employees in departments
+                </div>
               </div>
             </div>
           </div>
@@ -131,4 +110,4 @@ class Employees extends Component {
   }
 }
 
-export default withAuth(Employees);
+export default withAuth(Teams);
