@@ -12,7 +12,9 @@ class Signup extends Component {
         email: "",
         password: "",
         confirmPassword: "",
-        corporateName: ""
+        corporateName: "",
+        imageUrl: "https://res.cloudinary.com/fabionunez/image/upload/v1558690790/staff/uxhmu4tyno6zmny5o48z.png"
+
     }
 
     handleChange = (e) => {
@@ -29,9 +31,9 @@ class Signup extends Component {
         const username = this.state.username;
         const password = this.state.password;
         const corporateName = this.state.corporateName;
-
+        const imageUrl = this.state.imageUrl;
     
-        this.props.signup({ name, surname, corporateName, username, password })
+        this.props.signup({ name, surname, corporateName, username, password, imageUrl })
           .then(() => {
             this.setState({
               name: "",

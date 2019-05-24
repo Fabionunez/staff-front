@@ -1,34 +1,47 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withAuth } from '../providers/AuthProvider';
-import IconUsers from 'react-feather/dist/icons/users';
-import IconBriefcase from 'react-feather/dist/icons/briefcase';
-import IconGrid from 'react-feather/dist/icons/grid';
-import IconSettings from 'react-feather/dist/icons/settings';
-import IconLogout from 'react-feather/dist/icons/log-out';
-import IconStats from 'react-feather/dist/icons/pie-chart';
+
+import NavBarMenu from './NavBarMenu';
+
+
 
 import Logo from '../img/logo.svg';
 
 class Navbar extends Component {
-
-  handleSidebar = () =>{
-    console.log("sidebar");
+  state ={
+    showMenu: false,
+    classMenu: "collapse navbar-collapse"
   }
 
-  render(){
+  toogleMenu = () =>{
+    console.log(this.state.showMenu);
+    if(this.state.showMenu === false){
+      this.setState({showMenu:true, classMenu: "collapse navbar-collapse show menuheight" })
+    }else{
+      this.setState({showMenu:false, classMenu: "collapse navbar-collapse"})
+    }
+  }
 
+  clickMenuItem = () =>{
+    this.setState({showMenu:false, classMenu: "collapse navbar-collapse"})
+    console.log("in the function clickMenuItem");
+    console.log(this.state.classMenu);
+  }
+
+
+  render(){
     const pathname = this.props.pathname;
 
-    console.log(pathname);
     
     const {user, logout } = this.props;
 
     return(
     <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
+        
         <div className="container-fluid">
 
-          <button className="navbar-toggler" type="button" data-toggle="collapse" onClick={this.handleSidebar} data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <button onClick={this.toogleMenu} className="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="true" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
 
@@ -44,59 +57,10 @@ class Navbar extends Component {
                 </div>
               </Link>
             </div>
+            
           </div>
           
-          <div className="collapse navbar-collapse" id="sidebarCollapse">
-            <form className="mt-4 mb-3 d-md-none">
-              <div className="input-group input-group-rounded input-group-merge">
-                <input type="search" className="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search" />
-                <div className="input-group-prepend">
-                  <div className="input-group-text">
-                    <span className="fe fe-search"></span>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className={pathname === "/employees" ? "nav-link active" : "nav-link"} to="/employees" role="button" aria-expanded="true" aria-controls="sidebarDashboards">
-                  <IconUsers size={25} className="pr-2"/> Employees
-                </Link>
-              </li>
-              {user.isAdmin ? <li className="nav-item">
-                <Link to="/company" className={pathname === "/company" ? "nav-link active" : "nav-link"}>
-                  <IconBriefcase size={25} className="pr-2"/> Company
-                </Link>
-              </li> : ""}
-              
-              {user.isAdmin ? 
-              <li className="nav-item">
-                <Link to="/teams" className={pathname === "/teams" ? "nav-link active" : "nav-link"}>
-                  <IconGrid size={25} className="pr-2"/> Teams <span className="badge badge-soft-success ml-auto">soon</span>
-                </Link>
-              </li>
-              : ""}
-
-              {user.isAdmin ?
-              <li className="nav-item">
-                <Link to="/stats" className={pathname === "/stats" ? "nav-link active" : "nav-link"}>
-                  <IconStats size={25} className="pr-2"/> Stats <span className="badge badge-soft-success ml-auto">soon</span>
-                </Link>
-              </li>
-              : ""}
-
-              <li className="nav-item">
-                <Link to={`/employee/edit/${user._id}`} className={pathname === `/employee/edit/${user._id}` ? "nav-link active" : "nav-link"}>
-                  <IconSettings size={25} className="pr-2"/> Settings
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="javascript:;" className="nav-link" onClick={logout}>
-                  <IconLogout size={25} className="pr-2"/> Logout
-                </a>
-              </li>
-            </ul>
-          </div>
+          <NavBarMenu {...this.props} classMenu={this.state.classMenu} toogleMenu={this.toogleMenu} clickMenuItem={this.clickMenuItem} />
         </div>
       </nav>
     )}

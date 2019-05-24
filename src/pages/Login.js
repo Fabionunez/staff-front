@@ -46,7 +46,7 @@ class Login extends Component {
 
   render () {
       return (
-        <div class="row justify-content-center  border-top border-top-2 border-primary align-items-center" style={{height:"100vh"}} >
+        <div class="row justify-content-center  border-top border-top-2 border-primary align-items-center p-4" style={{height:"100vh"}} >
             <div class="col-12 col-md-5 col-xl-4 my-5 text-center">
                 <img src={Logo} className="text-center pb-5" style={{width:"300px"}} alt="..." />
 

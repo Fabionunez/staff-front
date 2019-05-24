@@ -42,32 +42,36 @@ class EmployeesEdit extends Component {
 
     componentDidMount(){
 
-        // check if the user is the admin of the company to let him edit
-        // or is the user editing his own profile
+
+
+        // Avoid edit when is not your profile or you are the
+        // admin of your company
+
+
 
         let {  user } = this.props; 
 
-        console.log(user._id)
-
-        companyService.companyView(user._id)
-            .then((company) =>{
-                console.log(company)
-            })
-            .catch((err) => console.log(err))
-
-
+        //console.log(user._id)
+        console.log("employee1");
         
         const { id } = this.props.match.params
 
         employeeService.employeeView(id)
         .then((employee) => {
-            this.setState( {
-                name: employee.name,
-                surname: employee.surname,
-                title: employee.title,
-                username: employee.username,
-                imageUrl: employee.imageUrl
-            });
+            console.log("employee: ",employee);
+
+            if(employee.message === "error"){
+                this.props.history.push("/404")
+            }else{
+                this.setState( {
+                    name: employee.name,
+                    surname: employee.surname,
+                    title: employee.title,
+                    username: employee.username,
+                    imageUrl: employee.imageUrl
+                });
+            }
+
           //console.log(employee.name);
           //window.location.href="/employees";
         })
@@ -204,13 +208,11 @@ class EmployeesEdit extends Component {
                         <FileInput 
                             name="imageUrl" 
                             id="imageUrl" 
-                            required
                             onChange={this.fileOnchange} 
                             fileType={["jpg", "png", "jpeg"]}
                             maxFileSize="1000 kb" 
                             errorMessage={
-                                { required: "Please upload a file", 
-                                fileType:"Only pdf and excel is allowed", 
+                                { fileType:"Only pdf and excel is allowed", 
                                 maxFileSize: "Max file size is 1000 kb"
                                 }
                             }/>

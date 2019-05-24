@@ -71,7 +71,7 @@ class Employees extends Component {
 
       <div>    
 
-      <Navbar pathname={this.props.location.pathname} />
+        <Navbar pathname={this.props.location.pathname} />
         <div className="main-content">
 
           <TopBar {...user} />
@@ -103,7 +103,7 @@ class Employees extends Component {
               <div className="card-header">
                 <form>
                   <div className="input-group input-group-flush input-group-merge">
-                    <input onChange={this.updateKeyword} type="search" class="form-control form-control-prepended search" placeholder="Search" />
+                    <input onChange={this.updateKeyword} type="search" className="form-control form-control-prepended search" placeholder="Search" />
                     <div className="input-group-prepend">
                       <div className="input-group-text">
                         <IconSearch size={18} />
@@ -116,6 +116,7 @@ class Employees extends Component {
                 <ul className="list-group list-group-flush list my-n3">   
                 {
                   filteredArray.map(employee => <EmployeeItem  
+                                                  key={user._id}
                                                   name={employee.name}
                                                   surname={employee.surname}
                                                   title={employee.title}

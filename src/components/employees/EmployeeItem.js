@@ -7,14 +7,7 @@ import IconAdmin from 'react-feather/dist/icons/star';
 
 export default function EmployeeItem(props) {
 
-  const isYou = (idItem) =>{
-    console.log(idItem,props.sessionId )
-    if(idItem === props.sessionId){
-      return "true"
-    }else{
-      return "false"
-    }
-  }
+
 
   const linkDestination = (idItem) =>{
 
@@ -33,7 +26,7 @@ export default function EmployeeItem(props) {
 
 
   return (
-      <li className="list-group-item px-0" key={props.id}>         
+      <li className="list-group-item px-0" key={props.idItem}>         
           <div className="row align-items-center">
             <div className="col-auto">
               <Link to={linkDestination(props.idItem) ? `/employee/edit/${props.idItem}`: `/employee/view/${props.idItem}`} className="avatar">
@@ -50,8 +43,8 @@ export default function EmployeeItem(props) {
                 {props.title} 
               </p> 
             </div>
-            {(props.userCanDelete() && !props.isAdmin) ? <div className="col-auto">
-              <a className="btn btn-sm btn-white" href="javascript:;" onClick={ () => props.handleDeleting(props._id)} title="Delete employee"  >
+            {(props.userCanDelete() && !props.isItenAdmin) ? <div className="col-auto">
+              <a className="btn btn-sm btn-white" href="javascript:;" onClick={ () => props.handleDeleting(props.idItem)} title="Delete employee"  >
                 <IconDelete color="grey" size={15} />
               </a>
             </div> : ""}

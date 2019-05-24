@@ -119,18 +119,18 @@ class EmployeesView extends Component {
           <div  className="main-content">
             <TopBar {...user} />
             <div className="main-content-padding">
-            <div class="header-body mb-5">
-                <h6 class="header-pretitle">
+            <div className="header-body mb-5">
+                <h6 className="header-pretitle">
                 View
                 </h6>
-                <h1 class="header-title">
+                <h1 className="header-title">
                 Employee
                 </h1>
             </div>  
 
             <div className="container p-0 m-0" >
 
-                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '350px'}}>
+                {/* <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '350px'}}>
                     <input type="hidden" id="id" name="id" value={this.props.match.params.id} />
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
@@ -200,7 +200,7 @@ class EmployeesView extends Component {
                         <button className="btn btn-primary mr-3" style={{width: '100%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
                         
                     </div>
-                </ValidationForm>
+                </ValidationForm> */}
 
                 </div>
             </div>
