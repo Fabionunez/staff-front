@@ -20,8 +20,8 @@ class CompanyService {
 
     return this.auth.get(`/company`)
     .then(response => response.data)
-
   } 
+
 
 }
 

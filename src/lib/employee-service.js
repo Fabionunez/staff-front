@@ -17,21 +17,120 @@ class EmployeeService {
 
 
   employeeAdd(user) {
-    const { name, surname, title, username, password } = user;
-    return this.auth.post('/employee/add', { name, surname, title, username, password })
+    const { 
+      username,
+      password,
+      name,
+      surname,
+      title,
+      companyPhone,
+      dateStart,
+      birthDate,
+      gender,
+      nationality,
+      phone,
+      identificationNumber,
+      socialSecurityNumber,
+      address,
+      city,
+      postalCode,
+      province,
+      country,
+      emergencyContact,
+      emergencyPhone,
+      managerID,
+    } = user;
+
+    if(user.imageUrl ===""){
+      user.imageUrl = "https://res.cloudinary.com/fabionunez/image/upload/v1558806598/staff/user2_e4pwrt.svg";
+    }
+    return this.auth.post('/employee/add', { 
+      username,
+      password,
+      name,
+      surname,
+      title,
+      companyPhone,
+      dateStart,
+      birthDate,
+      gender,
+      nationality,
+      phone,
+      identificationNumber,
+      socialSecurityNumber,
+      address,
+      city,
+      postalCode,
+      province,
+      country,
+      emergencyContact,
+      emergencyPhone,
+      managerID,
+      imageUrl: user.imageUrl
+     })
       .then(({ data }) => data);
   }
 
   employeeView(id) {
-    return this.auth.get(`/employee/edit/${id}`)
+    return this.auth.get(`/employee/view/${id}`)
     .then(response => response.data)
 
   }
 
   
   employeeUpdate(user) {
-    const { id, name, surname, title, imageUrl, username, password } = user;
-    return this.auth.put(`/employee/edit`, {id, name, surname, title, imageUrl, username, password })
+    const {
+      id, 
+      username,
+      password,
+      name,
+      surname,
+      title,
+      companyPhone,
+      dateStart,
+      birthDate,
+      gender,
+      nationality,
+      phone,
+      identificationNumber,
+      socialSecurityNumber,
+      address,
+      city,
+      postalCode,
+      province,
+      country,
+      emergencyContact,
+      emergencyPhone,
+      managerID
+     } = user;
+
+     if(user.imageUrl ===""){
+      user.imageUrl = "https://res.cloudinary.com/fabionunez/image/upload/v1558806598/staff/user2_e4pwrt.svg";
+    }
+    return this.auth.put(`/employee/edit`, {      
+      id, 
+      username,
+      password,
+      name,
+      surname,
+      title,
+      companyPhone,
+      dateStart,
+      birthDate,
+      gender,
+      nationality,
+      phone,
+      identificationNumber,
+      socialSecurityNumber,
+      address,
+      city,
+      postalCode,
+      province,
+      country,
+      emergencyContact,
+      emergencyPhone,
+      managerID,
+      imageUrl: user.imageUrl })
     .then(response => response.data)
 
   }

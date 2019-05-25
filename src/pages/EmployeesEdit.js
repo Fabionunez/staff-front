@@ -25,7 +25,6 @@ class EmployeesEdit extends Component {
       gender: "",
       nationality: "",
       phone: "",
-      photo: "",
       identificationNumber: "",
       socialSecurityNumber: "",
       address: "",
@@ -37,44 +36,53 @@ class EmployeesEdit extends Component {
       emergencyPhone: "",
       managerID: "",
       imageUrl: "",
-      submitDisabled: false
+      submitDisabled: false,
+      userExists: false
     }
 
 
     componentDidMount(){
 
-
-
-        // Avoid edit when is not your profile or you are the
-        // admin of your company
-
-
-
         let {  user } = this.props; 
 
-        //console.log(user._id)
-        console.log("employee1");
-        
         const { id } = this.props.match.params
 
         employeeService.employeeView(id)
         .then((employee) => {
-            console.log("employee: ",employee);
 
-            if(employee.message === "error"){
-                this.props.history.push("/404")
+            if(employee.permissions === false){ // Check if you have permissions to see this user
+              this.props.history.push("/employees")
+            
             }else{
+              if(employee.message === "error"){ //Check if the email you are editing already exist
+                this.props.history.push("/404")
+              }else{
                 this.setState( {
+                    username: employee.username,
                     name: employee.name,
                     surname: employee.surname,
                     title: employee.title,
-                    username: employee.username,
+                    companyPhone: employee.companyPhone,
+                    dateStart: employee.dateStart,
+                    birthDate: employee.birthDate,
+                    gender: employee.gender,
+                    nationality: employee.nationality,
+                    phone: employee.phone,
+                    identificationNumber: employee.identificationNumber,
+                    socialSecurityNumber: employee.socialSecurityNumber,
+                    address: employee.address,
+                    city: employee.city,
+                    postalCode: employee.postalCode,
+                    province: employee.province,
+                    country: employee.country,
+                    emergencyContact: employee.emergencyContact,
+                    emergencyPhone: employee.emergencyPhone,
+                    managerID: employee.managerID,
                     imageUrl: employee.imageUrl
-                });
-            }
 
-          //console.log(employee.name);
-          //window.location.href="/employees";
+                });
+             } 
+            }
         })
         .catch(error => console.log(error) )
     }
@@ -94,18 +102,76 @@ class EmployeesEdit extends Component {
     handleSubmit = (e, formData, inputs) => {
         e.preventDefault();
 
-        const name = this.state.name;
-        const surname = this.state.surname;
-        const username = this.state.username;
-        const title = this.state.title;
-        const password = this.state.password;
+        // const name = this.state.name;
+        // const surname = this.state.surname;
+        // const username = this.state.username;
+        // const title = this.state.title;
+        // const password = this.state.password;
         const id = this.props.match.params.id;
-        const imageUrl = this.state.imageUrl;
 
 
-        employeeService.employeeUpdate({ id, name, surname, imageUrl, title, username, password })
+        const { 
+          username,
+          password,
+          name,
+          surname,
+          title,
+          companyPhone,
+          dateStart,
+          birthDate,
+          gender,
+          nationality,
+          phone,
+          identificationNumber,
+          socialSecurityNumber,
+          address,
+          city,
+          postalCode,
+          province,
+          country,
+          emergencyContact,
+          emergencyPhone,
+          managerID,
+          imageUrl
+         } = this.state;
+
+
+
+        employeeService.employeeUpdate({ 
+          id,           
+          username,
+          password,
+          name,
+          surname,
+          title,
+          companyPhone,
+          dateStart,
+          birthDate,
+          gender,
+          nationality,
+          phone,
+          identificationNumber,
+          socialSecurityNumber,
+          address,
+          city,
+          postalCode,
+          province,
+          country,
+          emergencyContact,
+          emergencyPhone,
+          managerID,
+          imageUrl })
         .then((employee) => {
+
+
+          if(employee.userExists){
+
+            window.scrollTo( 0, 0 );
+            this.setState({userExists: employee.userExists})
+
+          }else{
             this.props.history.push("/employees")
+          }
 
         })
         .catch(error => console.log(error) )
@@ -141,6 +207,7 @@ class EmployeesEdit extends Component {
 
     render () {
       const {  user } = this.props; 
+
       
         
         return (
@@ -149,26 +216,25 @@ class EmployeesEdit extends Component {
           <div  className="main-content">
             <TopBar {...user} />
             <div className="main-content-padding">
-            <div class="header-body mb-5">
-                <h6 class="header-pretitle">
+            <div className="header-body mb-5">
+                <h6 className="header-pretitle">
                 Edit
                 </h6>
-                <h1 class="header-title">
-                Employee
+                <h1 className="header-title">
+                {this.state.name} {this.state.surname}
                 </h1>
             </div>  
 
             <div className="container p-0 m-0" >
 
-                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '800px'}}>
+                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{maxWidth: '800px'}}>
                     <input type="hidden" id="id" name="id" value={this.props.match.params.id} />
-
 
 
                     <div className="row">
                       <div className="col" style={{maxWidth: '150px'}} >
-                          <div class="avatar avatar-xxl">
-                              <img src={this.state.imageUrl}  alt="..." class="avatar-img rounded-circle" />
+                          <div className="avatar avatar-xxl">
+                              <img src={this.state.imageUrl}  alt="..." className="avatar-img rounded-circle" />
                           </div>
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0 pt-3">
@@ -184,13 +250,13 @@ class EmployeesEdit extends Component {
                                 maxFileSize: "Max file size is 1000 kb"
                                 }
                             }/>
-                        <small class="form-text text-muted pt-3">The image file should be under 1Mb</small>
+                        <small className="form-text text-muted pt-3">The image file should be under 1Mb</small>
                       </div>
                     </div>
 
 
 
-                    <hr class="mt-4 mb-5" />
+                    <hr className="mt-4 mb-5" />
 
 
 
@@ -227,14 +293,15 @@ class EmployeesEdit extends Component {
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label className="pb-2">Gender</label>
-                        <Radio.RadioGroup name="gender" required>
-                            <Radio.RadioItem id="male" label="Male" value="male"  /> 
-                            <Radio.RadioItem id="female" label="Female" value="female" />
+                        <Radio.RadioGroup name="gender" required valueSelected={this.state.gender} onChange={this.handleChange}>>
+                          
+                            <Radio.RadioItem id="male" name="male" value="male" label="Male"  /> 
+                            <Radio.RadioItem id="female" name="female" value="female" label="Female" />
                         </Radio.RadioGroup>
                       </div>
                     </div>
 
-                    <hr class="mt-4 mb-5" />
+                    <hr className="mt-4 mb-5" />
 
 
                     <div className="row">
@@ -249,7 +316,6 @@ class EmployeesEdit extends Component {
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="companyPhone">Company phone <small className="text-muted">(optional)</small></label>
                         <MaskWithValidation name="companyPhone" className="form-control"
-                            step 
                             validator={(value) => value.search("_")<0}
                             value={this.state.companyPhone}
                             onChange={this.handleChange}
@@ -267,14 +333,17 @@ class EmployeesEdit extends Component {
                             errorMessage={{validator:"Please enter a valid email"}}
                             value={this.state.username}
                             onChange={this.handleChange}
-                            />    
+                            />
+                        {this.state.userExists ? <small className="text-danger">User already exist</small>:""}  
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
-                        <label htmlFor="managerID">Manager id</label>
-                        <TextInput name="managerID" id="managerID"
-                            value={this.state.managerID}
-                            onChange={this.handleChange}
-                        />
+                        <label htmlFor="password">New password <small className="text-muted">(optional)</small></label>
+                          <TextInput name="password" id="password" type="password" 
+                              pattern="(?=.*[A-Z]).{6,}"
+                              errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
+                              value={this.state.password}
+                              onChange={this.handleChange}
+                          />
                       </div>
                     </div>
 
@@ -286,7 +355,7 @@ class EmployeesEdit extends Component {
 
 
 
-                    <hr class="mt-4 mb-5" />
+                    <hr className="mt-4 mb-5" />
 
 
                     <div className="row">
@@ -312,7 +381,6 @@ class EmployeesEdit extends Component {
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="phone">Personal phone <small className="text-muted">(optional)</small> </label>
                         <MaskWithValidation name="phone" className="form-control"
-                            step 
                             validator={(value) => value.search("_")<0}
                             value={this.state.phone}
                             onChange={this.handleChange}
@@ -322,7 +390,7 @@ class EmployeesEdit extends Component {
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="birthDate">Birth date  <small className="text-muted">(optional)</small></label>
-                        <MaskWithValidation name="birthDate" className="form-control" required 
+                        <MaskWithValidation name="birthDate" className="form-control" 
                             validator={(value) => value.search("_")<0}
                             value={this.state.birthDate}
                             onChange={this.handleChange}
@@ -334,7 +402,7 @@ class EmployeesEdit extends Component {
 
 
 
-                    <hr class="mt-4 mb-5" />
+                    <hr className="mt-4 mb-5" />
 
 
                     <div className="row">
@@ -359,7 +427,6 @@ class EmployeesEdit extends Component {
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="postalCode">PostalCode <small className="text-muted">(optional)</small></label>
                         <TextInput name="postalCode" id="postalCode"
-                            step
                             value={this.state.postalCode}
                             onChange={this.handleChange}
                         />
@@ -392,7 +459,7 @@ class EmployeesEdit extends Component {
 
 
 
-                    <hr class="mt-4 mb-5" />
+                    <hr className="mt-4 mb-5" />
 
 
 
@@ -407,7 +474,6 @@ class EmployeesEdit extends Component {
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="emergencyPhone">Emergency contact person's phone <small className="text-muted">(optional)</small></label>
                         <MaskWithValidation name="emergencyPhone" className="form-control"
-                            step 
                             validator={(value) => value.search("_")<0}
                             value={this.state.emergencyPhone}
                             onChange={this.handleChange}
@@ -418,16 +484,13 @@ class EmployeesEdit extends Component {
                     </div>
 
 
-                    <hr class="mt-4 mb-5" />
+                    <hr className="mt-4 mb-5" />
 
                     <div className="row">
                       <div className="form-group col-12">
-                          <label htmlFor="password">New password <small className="text-muted">(optional)</small></label>
-                          <TextInput name="password" id="password" type="password"
-                              required  
-                              pattern="(?=.*[A-Z]).{6,}"
-                              errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
-                              value={this.state.password}
+                        <label htmlFor="managerID">Manager id</label>
+                          <TextInput name="managerID" id="managerID"
+                              value={this.state.managerID}
                               onChange={this.handleChange}
                           />
                       </div>

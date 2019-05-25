@@ -11150,7 +11150,7 @@ a.text-white:hover {
 }
 
 .card-avatar-top.avatar-sm {
-  margin-top: -2.75rem
+  margin-top: -.75rem
 }
 
 .card-avatar-top.avatar-lg {
@@ -14196,4 +14196,29 @@ label{
 
 .menuheight{
   height:100vh;
+}
+
+
+.form-control:valid{
+  border: 1px solid #d2ddec !important;
+}
+
+.form-check-input:valid~.form-check-label{
+  color:#12263f !important;
+}
+#search-employees{
+  border:0px solid transparent !important;
+}
+
+
+.header-img-top {
+  margin-top: -25%;
+}
+
+.avatar-custom{
+    width: 8.125rem;
+    height: 8.125rem;
+}
+.card-avatar-top-custom{
+  margin-top:-5rem;
 }

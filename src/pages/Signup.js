@@ -13,7 +13,7 @@ class Signup extends Component {
         password: "",
         confirmPassword: "",
         corporateName: "",
-        imageUrl: "https://res.cloudinary.com/fabionunez/image/upload/v1558690790/staff/uxhmu4tyno6zmny5o48z.png"
+        imageUrl: "https://res.cloudinary.com/fabionunez/image/upload/v1558806598/staff/user2_e4pwrt.svg"
 
     }
 

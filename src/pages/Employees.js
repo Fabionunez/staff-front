@@ -103,7 +103,7 @@ class Employees extends Component {
               <div className="card-header">
                 <form>
                   <div className="input-group input-group-flush input-group-merge">
-                    <input onChange={this.updateKeyword} type="search" className="form-control form-control-prepended search" placeholder="Search" />
+                    <input id="search-employees" onChange={this.updateKeyword} type="search" className="form-control form-control-prepended search" placeholder="Search" />
                     <div className="input-group-prepend">
                       <div className="input-group-text">
                         <IconSearch size={18} />
@@ -130,6 +130,7 @@ class Employees extends Component {
                                                   userCanDelete={this.userCanDelete}
                                                     />)
                 }
+                {filteredArray.length === 0 ? "No employees found": ""}
                 </ul>
               </div>
             </div>

@@ -11,104 +11,53 @@ import TopBar from '../components/TopBar';
 
 class EmployeesView extends Component {
     state = {
-      username: "", //mail
-      password: "",
-      name: "",
-      surname: "",
-      title: "",
-      companyPhone: "",
-      dateStart: "",
-      birthDate: "",
-      gender: "",
-      nationality: "",
-      phone: "",
-      photo: "",
-      identificationNumber: "",
-      socialSecurityNumber: "",
-      address: "",
-      city: "",
-      postalCode: "",
-      state: "",
-      country: "",
-      emergencyContact: "",
-      emergencyPhone: "",
-      managerID: "",
-      imageUrl: "",
-      submitDisabled: false
-    }
-
-
-    componentDidMount(){
-        const { id } = this.props.match.params
-
-        employeeService.employeeView(id)
-        .then((employee) => {
-            this.setState( {
-                name: employee.name,
-                surname: employee.surname,
-                title: employee.title,
-                username: employee.username,
-                imageUrl: employee.imageUrl
-            });
-          //console.log(employee.name);
-          //window.location.href="/employees";
-        })
-        .catch(error => console.log(error) )
-    }
-
-    handleChange = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
-
-    handleSubmit = (e, formData, inputs) => {
-        e.preventDefault();
-
-        const name = this.state.name;
-        const surname = this.state.surname;
-        const username = this.state.username;
-        const title = this.state.title;
-        const password = this.state.password;
-        const id = this.props.match.params.id;
-        const imageUrl = this.state.imageUrl;
-
-
-        employeeService.employeeUpdate({ id, name, surname, imageUrl, title, username, password })
-        .then((employee) => {
-            this.props.history.push("/employees")
-
-        })
-        .catch(error => console.log(error) )
-
-          
-    }
-
-    handleErrorSubmit = (e, formData, errorInputs) => {
-        console.error(errorInputs)
-    }
-
-    matchPassword = (value) => {
-        return value && value === this.state.password;   
-    }
-
-    fileOnchange = (event) => {
-      const file = event.target.files[0];
-      const uploadData = new FormData()
-      uploadData.append('photo', file)
-
-      this.setState({submitDisabled: true})
+        username: "", //mail
+        name: "",
+        surname: "",
+        title: "",
+        companyPhone: "",
+        dateStart: "",
+        birthDate: "",
+        managerID: "",
+        imageUrl: "",
+        managerID: ""
+      }
   
-      employeeService.imageUpload(uploadData)
-      .then((imageUrl) => {
-        this.setState({
-          imageUrl,
-          submitDisabled: false,
-          submitText: "Save changes"
-        })
-      })
-      .catch((error) => console.log(error))
-    }
+  
+      componentDidMount(){
+  
+          let { user } = this.props; 
+  
+          const { id } = this.props.match.params
+  
+          employeeService.employeeView(id)
+          .then((employee) => {
+  
+              if(employee.permissions === false){ // Check if you have permissions to see this user
+                this.props.history.push("/employees")
+              
+              }else{
+                if(employee.message === "error"){ //Check if the email you are editing already exist
+                  this.props.history.push("/404")
+                }else{
+                  this.setState( {
+                      username: employee.username,
+                      name: employee.name,
+                      surname: employee.surname,
+                      title: employee.title,
+                      companyPhone: employee.companyPhone,
+                      dateStart: employee.dateStart,
+                      birthDate: employee.birthDate,
+                      managerID: employee.managerID,
+                      imageUrl: employee.imageUrl
+  
+                  });
+               } 
+              }
+          })
+          .catch(error => console.log(error) )
+      }
+  
 
     render () {
       const {  user } = this.props; 
@@ -118,93 +67,82 @@ class EmployeesView extends Component {
           <Navbar />
           <div  className="main-content">
             <TopBar {...user} />
-            <div className="main-content-padding">
-            <div className="header-body mb-5">
-                <h6 className="header-pretitle">
-                View
-                </h6>
-                <h1 className="header-title">
-                Employee
-                </h1>
-            </div>  
 
-            <div className="container p-0 m-0" >
 
-                {/* <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '350px'}}>
-                    <input type="hidden" id="id" name="id" value={this.props.match.params.id} />
-                    <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <TextInput name="name" id="name" required
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="surname">Surname</label>
-                        <TextInput name="surname" id="surname" minLength="4"
-                            value={this.state.surname}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="title">Title</label>
-                        <TextInput name="title" id="title" minLength="4"
-                            value={this.state.title}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="username">Email</label>
-                        <TextInput name="username" id="username" type="email" 
-                            validator={validator.isEmail} 
-                            errorMessage={{validator:"Please enter a valid email"}}
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">New password</label>
-                        <TextInput name="password" id="password" type="text"  
-                            pattern="(?=.*[A-Z]).{6,}"
-                            errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="username">Email</label>
-                        <TextInput name="username" id="username" type="email" 
-                            validator={validator.isEmail} 
-                            errorMessage={{validator:"Please enter a valid email"}}
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="imageUrl">Profile image</label>
-                        <FileInput 
-                            name="imageUrl" 
-                            id="imageUrl" 
-                            required
-                            onChange={this.fileOnchange} 
-                            fileType={["jpg", "png", "jpeg"]}
-                            maxFileSize="1000 kb" 
-                            errorMessage={
-                                { required: "Please upload a file", 
-                                fileType:"Only pdf and excel is allowed", 
-                                maxFileSize: "Max file size is 1000 kb"
-                                }
-                            }/>
-                    </div>
-                    <div className="form-group pt-2">
-                        <button className="btn btn-primary mr-3" style={{width: '100%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
-                        
-                    </div>
-                </ValidationForm> */}
 
-                </div>
+
+            <div className="container pt-4 d-flex justify-content-center" >
+
+
+                  <div className="card" style={{maxWidth: '600px'}}>
+                  {/* <img src="http://bostoncolumn.com/wp-content/uploads/2018/10/header-background-image-background-header-1.jpg" alt="..." className="card-img-top" /> */}
+                  <img src="https://res.cloudinary.com/fabionunez/image/upload/v1558809492/staff/background_ple0qi.png" alt="..." className="card-img-top" />
+                    <div className="card-body text-center pb-0">
+                      <a href="profile-posts.html" className="avatar-custom card-avatar card-avatar-top-custom" style={{}}>
+                        <img src={this.state.imageUrl} className="avatar-img rounded-circle border border-5 border-card" alt="..." />
+                      </a>
+                      <h2 className="card-title"><a href="profile-posts.html" style={{}}>{this.state.name} {this.state.surname}</a></h2>
+                      <p><small>{this.state.title}</small></p>
+                      <hr />
+                    </div>
+
+                    
+                    <div className="card-body pt-0">
+                      
+                      <div className="row align-items-center">
+                        <div className="col">
+                          <h5 className="mb-0">Birthday</h5>
+                        </div>
+                        <div className="col-auto">
+                          <span className="small text-muted">{this.state.birthDate ? this.state.birthDate: "Not introduced"}</span>
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div className="row align-items-center">
+                        <div className="col">
+                          <h5 className="mb-0">Joined</h5>
+                        </div>
+                        <div className="col-auto">
+                          <span className="small text-muted">{this.state.dateStart}</span>
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div className="row align-items-center">
+                        <div className="col">
+                          <h5 className="mb-0">E-mail</h5>
+                        </div>
+                        <div className="col-auto">
+                          <span className="small text-muted">{this.state.username}</span>
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div className="row align-items-center">
+                        <div className="col">
+                          <h5 className="mb-0">Office phone</h5>
+                        </div>
+                        <div className="col-auto">
+                          <span className="small text-muted">{this.state.companyPhone ? this.state.companyPhone: "Not introduced"}</span>
+                        </div>
+                      </div>
+                      <hr />
+
+                      <div className="row align-items-center">
+                        <div className="col">
+                        <a class="btn btn-primary d-block" href={`mailto:{this.state.username}`} role="button">Contact</a>
+                        </div>
+      
+                      </div> {/* / .row */}
+                    </div>
+
+                  </div>
+
             </div>
-            </div>
+
+
+          </div>
         </div>
         )
     }
