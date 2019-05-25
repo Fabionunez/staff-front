@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ValidationForm, TextInput, FileInput } from 'react-bootstrap4-form-validation';
+import { ValidationForm, TextInput, SelectGroup, Checkbox, Radio, FileInput, BaseFormControl } from "react-bootstrap4-form-validation"
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import companyService from '../lib/company-service';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
 
+import MaskWithValidation from '../components/employees/MaskWithValidation'
 
 class EmployeesEdit extends Component {
     state = {
@@ -30,7 +31,7 @@ class EmployeesEdit extends Component {
       address: "",
       city: "",
       postalCode: "",
-      state: "",
+      province: "",
       country: "",
       emergencyContact: "",
       emergencyPhone: "",
@@ -82,6 +83,12 @@ class EmployeesEdit extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+    }
+
+    handleChangeDates = (date) => {
+      this.setState({
+        birthDate: date
+      });
     }
 
     handleSubmit = (e, formData, inputs) => {
@@ -153,58 +160,19 @@ class EmployeesEdit extends Component {
 
             <div className="container p-0 m-0" >
 
-                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '350px'}}>
+                <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{"max-width": '800px'}}>
                     <input type="hidden" id="id" name="id" value={this.props.match.params.id} />
-                    <div className="form-group">
-                        <label htmlFor="name">Name</label>
-                        <TextInput name="name" id="name" required
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="surname">Surname</label>
-                        <TextInput name="surname" id="surname" minLength="4"
-                            value={this.state.surname}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="title">Title</label>
-                        <TextInput name="title" id="title" minLength="4"
-                            value={this.state.title}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="username">Email</label>
-                        <TextInput name="username" id="username" type="email" 
-                            validator={validator.isEmail} 
-                            errorMessage={{validator:"Please enter a valid email"}}
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">New password</label>
-                        <TextInput name="password" id="password" type="text"  
-                            pattern="(?=.*[A-Z]).{6,}"
-                            errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
-                            value={this.state.password}
-                            onChange={this.handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="username">Email</label>
-                        <TextInput name="username" id="username" type="email" 
-                            validator={validator.isEmail} 
-                            errorMessage={{validator:"Please enter a valid email"}}
-                            value={this.state.username}
-                            onChange={this.handleChange}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="imageUrl">Profile image</label>
+
+
+
+                    <div className="row">
+                      <div className="col" style={{maxWidth: '150px'}} >
+                          <div class="avatar avatar-xxl">
+                              <img src={this.state.imageUrl}  alt="..." class="avatar-img rounded-circle" />
+                          </div>
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0 pt-3">
+                        <label htmlFor="imageUrl">Profile image  <small className="text-muted">(optional)</small></label>
                         <FileInput 
                             name="imageUrl" 
                             id="imageUrl" 
@@ -216,8 +184,258 @@ class EmployeesEdit extends Component {
                                 maxFileSize: "Max file size is 1000 kb"
                                 }
                             }/>
+                        <small class="form-text text-muted pt-3">The image file should be under 1Mb</small>
+                      </div>
                     </div>
-                    <div className="form-group pt-2">
+
+
+
+                    <hr class="mt-4 mb-5" />
+
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="name">Name</label>
+                        <TextInput name="name" id="name" required
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="surname">Surnames</label>
+                        <TextInput name="surname" id="surname" minLength="4"
+                            value={this.state.surname}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                    </div>
+
+
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="dateStart">Start date</label>
+                        <MaskWithValidation name="dateStart" className="form-control" required 
+                            validator={(value) => value.search("_")<0}
+                            value={this.state.dateStart}
+                            onChange={this.handleChange}
+                            errorMessage={{validator: "Please enter dd/mm/yyyy"}}
+                            mask={[/[0-3]/, /[1-9]/,  '/', /[0-1]/, /[0-9]/, '/', /[1-2]/, /[0-9]/, /[0-9]/, /[0-9]/]}
+                            />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label className="pb-2">Gender</label>
+                        <Radio.RadioGroup name="gender" required>
+                            <Radio.RadioItem id="male" label="Male" value="male"  /> 
+                            <Radio.RadioItem id="female" label="Female" value="female" />
+                        </Radio.RadioGroup>
+                      </div>
+                    </div>
+
+                    <hr class="mt-4 mb-5" />
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="title">Title</label>
+                        <TextInput name="title" id="title" minLength="4"
+                            value={this.state.title}
+                            onChange={this.handleChange}
+                        />
+
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="companyPhone">Company phone <small className="text-muted">(optional)</small></label>
+                        <MaskWithValidation name="companyPhone" className="form-control"
+                            step 
+                            validator={(value) => value.search("_")<0}
+                            value={this.state.companyPhone}
+                            onChange={this.handleChange}
+                            errorMessage={{validator: "Use this format 000 000 000"}}
+                            mask={[/[0-9]/, /[0-9]/, /[0-9]/,  ' ', /[0-9]/, /[0-9]/,/[0-9]/, ' ',  /[0-9]/, /[0-9]/,/[0-9]/,]}
+                            />
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="username">Email</label>
+                        <TextInput name="username" id="username" type="email" 
+                            validator={validator.isEmail} 
+                            errorMessage={{validator:"Please enter a valid email"}}
+                            value={this.state.username}
+                            onChange={this.handleChange}
+                            />    
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="managerID">Manager id</label>
+                        <TextInput name="managerID" id="managerID"
+                            value={this.state.managerID}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="form-group col-12 pr-lg-4 pr-sm-0">
+  
+                      </div>
+                    </div>
+
+
+
+                    <hr class="mt-4 mb-5" />
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="identificationNumber">Identification Number <small className="text-muted">(optional)</small></label>
+                        <TextInput name="identificationNumber" id="identificationNumber"
+                            value={this.state.identificationNumber}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="socialSecurityNumber">Social security Number <small className="text-muted">(optional)</small></label>
+                        <TextInput name="socialSecurityNumber" id="socialSecurityNumber"
+                            value={this.state.socialSecurityNumber}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                    </div>
+
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="phone">Personal phone <small className="text-muted">(optional)</small> </label>
+                        <MaskWithValidation name="phone" className="form-control"
+                            step 
+                            validator={(value) => value.search("_")<0}
+                            value={this.state.phone}
+                            onChange={this.handleChange}
+                            errorMessage={{validator: "Use this format 000 000 000"}}
+                            mask={[/[0-9]/, /[0-9]/, /[0-9]/,  ' ', /[0-9]/, /[0-9]/,/[0-9]/, ' ',  /[0-9]/, /[0-9]/,/[0-9]/,]}
+                            />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="birthDate">Birth date  <small className="text-muted">(optional)</small></label>
+                        <MaskWithValidation name="birthDate" className="form-control" required 
+                            validator={(value) => value.search("_")<0}
+                            value={this.state.birthDate}
+                            onChange={this.handleChange}
+                            errorMessage={{validator: "Please enter dd/mm/yyyy"}}
+                            mask={[/[0-3]/, /[1-9]/,  '/', /[0-1]/, /[0-9]/, '/', /[1-2]/, /[0-9]/, /[0-9]/, /[0-9]/]}
+                            />
+                      </div>
+                    </div>
+
+
+
+                    <hr class="mt-4 mb-5" />
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="address">Address <small className="text-muted">(optional)</small></label>
+                        <TextInput name="address" id="address"
+                            value={this.state.address}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="city">City <small className="text-muted">(optional)</small></label>
+                        <TextInput name="city" id="city"
+                            value={this.state.city}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                    </div>
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="postalCode">PostalCode <small className="text-muted">(optional)</small></label>
+                        <TextInput name="postalCode" id="postalCode"
+                            step
+                            value={this.state.postalCode}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="province">State <small className="text-muted">(optional)</small></label>
+                        <TextInput name="province" id="province"
+                            value={this.state.province}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="country">Country <small className="text-muted">(optional)</small></label>
+                        <TextInput name="country" id="country"
+                            value={this.state.country}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="nationality">Nationality <small className="text-muted">(optional)</small></label>
+                          <TextInput name="nationality" id="nationality"
+                              value={this.state.nationality}
+                              onChange={this.handleChange}
+                          />
+                      </div>
+                    </div>
+
+
+
+                    <hr class="mt-4 mb-5" />
+
+
+
+                    <div className="row">
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="emergencyContact">Emergency contact person <small className="text-muted">(optional)</small></label>
+                        <TextInput name="emergencyContact" id="emergencyContact"
+                            value={this.state.emergencyContact}
+                            onChange={this.handleChange}
+                        />
+                      </div>
+                      <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                        <label htmlFor="emergencyPhone">Emergency contact person's phone <small className="text-muted">(optional)</small></label>
+                        <MaskWithValidation name="emergencyPhone" className="form-control"
+                            step 
+                            validator={(value) => value.search("_")<0}
+                            value={this.state.emergencyPhone}
+                            onChange={this.handleChange}
+                            errorMessage={{validator: "Use this format 000 000 000"}}
+                            mask={[/[0-9]/, /[0-9]/, /[0-9]/,  ' ', /[0-9]/, /[0-9]/,/[0-9]/, ' ',  /[0-9]/, /[0-9]/,/[0-9]/,]}
+                            />
+                      </div>
+                    </div>
+
+
+                    <hr class="mt-4 mb-5" />
+
+                    <div className="row">
+                      <div className="form-group col-12">
+                          <label htmlFor="password">New password <small className="text-muted">(optional)</small></label>
+                          <TextInput name="password" id="password" type="password"
+                              required  
+                              pattern="(?=.*[A-Z]).{6,}"
+                              errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
+                              value={this.state.password}
+                              onChange={this.handleChange}
+                          />
+                      </div>
+                    </div>
+
+
+
+                    <div className="form-group pt-4  mb-6">
                         <button className="btn btn-primary mr-3" style={{width: '100%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
                         
                     </div>
