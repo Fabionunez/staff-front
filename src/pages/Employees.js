@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
-import IconSearch from 'react-feather/dist/icons/search';
+
 import IconAdd from 'react-feather/dist/icons/plus';
-import EmployeeItem from '../components/employees/EmployeeItem';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
+import UserTable from '../components/employees/UserTable';
 
 
 class Employees extends Component {
@@ -21,7 +21,6 @@ class Employees extends Component {
         this.setState({employees: response})
     })
     .catch((err) => console.log(err))
-
   } 
 
   componentDidMount() {
@@ -34,10 +33,7 @@ class Employees extends Component {
       this.getAllEmployees();
     })
     .catch((err) => console.log(err))
-
   }
-
-
 
   updateKeyword = (event) => {
     this.setState({keyword: event.target.value});
@@ -53,34 +49,15 @@ class Employees extends Component {
     }  
   }
 
-
-
-  
-
-
   render() {
-    const filteredArray = this.state.employees.filter( employee => {
-      return (employee.name + ' ' + employee.surname).toLowerCase().includes(this.state.keyword.toLowerCase())
-    })
-
     const {  user } = this.props; 
-    
-    
 
     return (
-
       <div>    
-
         <Navbar pathname={this.props.location.pathname} />
         <div className="main-content">
-
           <TopBar {...user} />
-
           <div className="main-content-padding">
-
-
-
-
               <div className="header-body header-employees">
                 <div className="row align-items-center">
                   <div className="col">
@@ -96,44 +73,13 @@ class Employees extends Component {
                   :""}
                 </div>
               </div>
-
-
-            <div className="card">
-
-              <div className="card-header">
-                <form>
-                  <div className="input-group input-group-flush input-group-merge">
-                    <input id="search-employees" onChange={this.updateKeyword} type="search" className="form-control form-control-prepended search" placeholder="Search" />
-                    <div className="input-group-prepend">
-                      <div className="input-group-text">
-                        <IconSearch size={18} />
-                      </div>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div className="card-body">
-                <ul className="list-group list-group-flush list my-n3">   
-                {
-                  filteredArray.map(employee => <EmployeeItem  
-                                                  key={user._id}
-                                                  name={employee.name}
-                                                  surname={employee.surname}
-                                                  title={employee.title}
-                                                  idItem={employee._id}
-                                                  sessionId={user._id}
-                                                  imageUrl={employee.imageUrl}
-                                                  isItenAdmin={employee.isAdmin}
-                                                  isAdmin={user.isAdmin}
-                                                  handleDeleting={this.handleDeleting}  
-                                                  getAllEmployees={this.getAllEmployees}
-                                                  userCanDelete={this.userCanDelete}
-                                                    />)
-                }
-                {filteredArray.length === 0 ? "No employees found": ""}
-                </ul>
-              </div>
-            </div>
+              <UserTable 
+                {...this.state} 
+                userCanDelete={this.userCanDelete} 
+                updateKeyword={this.updateKeyword} 
+                handleDeleting={this.handleDeleting}
+                getAllEmployees={this.getAllEmployees}  
+              />
           </div>
         </div>
       </div>

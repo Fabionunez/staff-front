@@ -7,6 +7,7 @@ import IconAdmin from 'react-feather/dist/icons/star';
 
 export default function EmployeeItem(props) {
 
+  console.log(props)
 
 
   const linkDestination = (idItem) =>{
