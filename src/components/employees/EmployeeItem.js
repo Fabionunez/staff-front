@@ -29,7 +29,7 @@ export default function EmployeeItem(props) {
   return (
       <li className="list-group-item px-0" key={props.idItem}>         
           <div className="row align-items-center">
-            <div className="col-auto">
+            <div className="col-auto ml-4">
               <Link to={linkDestination(props.idItem) ? `/employee/edit/${props.idItem}`: `/employee/view/${props.idItem}`} className="avatar">
                 <img src={props.imageUrl} alt="..." className="avatar-img rounded-circle" />
                 {props.isItenAdmin ?<div className="adminBadge" title="Admin of the account"><IconAdmin size={22} color="white" className="adminBadgeIcon" /></div> :""}
@@ -44,7 +44,7 @@ export default function EmployeeItem(props) {
                 {props.title} 
               </p> 
             </div>
-            {(props.userCanDelete() && !props.isItenAdmin) ? <div className="col-auto">
+            {(props.userCanDelete() && !props.isItenAdmin) ? <div className="col-auto pr-5">
               <a className="btn btn-sm btn-white" href="javascript:;" onClick={ () => props.handleDeleting(props.idItem)} title="Delete employee"  >
                 <IconDelete color="grey" size={15} />
               </a>

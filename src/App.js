@@ -9,6 +9,10 @@ import EmployeesView from './pages/EmployeesView';
 
 import Company from './pages/Company';
 import Teams from './pages/Teams';
+import TeamEdit from './pages/teams/TeamEdit';
+import TeamAdd from './pages/teams/TeamAdd';
+
+
 import Stats from './pages/Stats';
 
 import Page404 from './pages/Page404';
@@ -33,7 +37,9 @@ class App extends Component {
             <PrivateRoute path="/employee/edit/:id" component={EmployeesEdit} />
             <PrivateRoute path="/employee/view/:id" component={EmployeesView} />
             <PrivateRoute path="/company" component={Company} />
-            <PrivateRoute path="/teams" component={Teams} />
+            <PrivateRoute exact path="/teams" component={Teams} />
+            <PrivateRoute path="/teams/add" component={TeamAdd} />
+            <PrivateRoute path="/teams/edit/:id" component={TeamEdit} />
             <PrivateRoute path="/stats" component={Stats} />
             <Route component={Page404} />
           </Switch>

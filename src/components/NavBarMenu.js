@@ -33,7 +33,7 @@ class NavBarMenu extends Component{
               {user.isAdmin ? 
               <li className="nav-item">
                 <Link onClick={this.props.clickMenuItem} to="/teams" className={pathname === "/teams" ? "nav-link active" : "nav-link"}>
-                  <IconGrid size={25} className="pr-2"/> Teams <span className="badge badge-soft-success ml-auto">soon</span>
+                  <IconGrid size={25} className="pr-2"/> Teams 
                 </Link>
               </li>
               : ""}
