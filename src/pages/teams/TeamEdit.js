@@ -140,15 +140,15 @@ class TeamEdit extends Component {
 
   selectAndChangeStyle = (id) =>{
 
-    console.log(id)
-    const check = document.getElementById(id).checked;
-    if(check){
-      document.getElementById(id).checked = false;
-      document.getElementById("li-"+id).classList.remove("itemSelected");
-    }else{
-      document.getElementById(id).checked = true;
-      document.getElementById("li-"+id).classList.add("itemSelected");
-    }
+    // console.log(id)
+    // const check = document.getElementById(id).checked;
+    // if(check){
+    //   document.getElementById(id).checked = false;
+    //   document.getElementById("li-"+id).classList.remove("itemSelected");
+    // }else{
+    //   document.getElementById(id).checked = true;
+    //   document.getElementById("li-"+id).classList.add("itemSelected");
+    // }
   }
 
   render() {
