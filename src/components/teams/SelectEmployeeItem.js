@@ -2,10 +2,10 @@ import React from 'react';
 
 export default function SelectEmployeeItem(props) {
 
-
+  // console.log(props.usersIds);
 
   return (
-      <li className="list-group-item px-0" key={props._id}>         
+      <li id={`li-${props._id}`} onClick={() => props.selectAndChangeStyle(props._id)} className={props.usersIds.filter((id) => id.includes(props._id)).length === 1 ? "list-group-item px-0 itemSelected" : "list-group-item px-0" }>         
           <div className="row align-items-center">
 
             <div className="col-auto ml-4">

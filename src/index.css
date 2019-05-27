@@ -14227,3 +14227,7 @@ label{
   font-size: 1.1rem;
   margin-bottom:5px;
 }
+
+.itemSelected{
+  background-color:#fcf9ec;
+}

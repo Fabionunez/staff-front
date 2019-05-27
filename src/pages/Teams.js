@@ -62,7 +62,7 @@ class Teams extends Component {
 
     const {  user } = this.props; 
     
-    
+    console.log("this.state.teams.usersId ", this.state.teams)
 
     return (
 

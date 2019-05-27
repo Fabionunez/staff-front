@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { ValidationForm, TextInput, SelectGroup, Checkbox, Radio, FileInput, BaseFormControl } from "react-bootstrap4-form-validation"
-import validator from 'validator';
 import { withAuth } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
 
 import employeeService from '../../lib/employee-service';
 import teamService from '../../lib/team-service';
@@ -17,7 +15,8 @@ class TeamEdit extends Component {
   state = {
     id: "",
     name: "",
-    usersIds: [], //,"5ce67056592dfa738bf954b3"
+    usersIds: [],
+    usersIdsObj: [],
     teamLeaderid: "",
     companyId: this.props.user.companyID,
     mission: "",
@@ -38,18 +37,32 @@ class TeamEdit extends Component {
 
   componentDidMount() {
 
+ 
+
     const idTeam = this.props.match.params.id;
 
     teamService.teamView(idTeam)
       .then((team) =>{
+
+        
+
+        const usersObjToArr = team.usersIds.map((user) =>{
+          return user._id.toString();
+        });
+
+        console.log("componenDidMount team >", team)
+
         this.setState( {
           id: team._id,
           name: team.name,
           teamLeaderid: team.teamLeaderid,
-          usersIds: team.usersIds,
+          usersIdsObj: team.usersIds,
+          usersIds: usersObjToArr,
           mission: team.mission,
           vision: team.vision
-      });
+        });
+
+      console.log("this.state.usersIds componentDidMount: ",this.state.usersIds);
 
       })
       .catch((err) => console.log(err))
@@ -123,23 +136,26 @@ class TeamEdit extends Component {
       this.setState({usersIds: cloneUsersIds})
     }
 
-    // let checks = document.getElementsByClassName('selectedEmployees');
-    // let newChecks = [];
-
-    // for(var i = 0; i < checks.length; i ++){
-    //   if(checks[i].checked){
-    //     newChecks.push(checks[i].value)
-    //   }
-    //   this.setState({usersIds: newChecks})
-    // }
-
   }
 
+  selectAndChangeStyle = (id) =>{
+
+    console.log(id)
+    const check = document.getElementById(id).checked;
+    if(check){
+      document.getElementById(id).checked = false;
+      document.getElementById("li-"+id).classList.remove("itemSelected");
+    }else{
+      document.getElementById(id).checked = true;
+      document.getElementById("li-"+id).classList.add("itemSelected");
+    }
+  }
 
   render() {
     const {  user } = this.props; 
 
-    //console.log(this.state.usersIds);
+    
+
 
     return (
         <div>
@@ -214,6 +230,7 @@ class TeamEdit extends Component {
 
                     <SelectEmployeeTable 
                       {...this.state}
+                      selectAndChangeStyle={this.selectAndChangeStyle}
                       updateKeyword={this.updateKeyword} 
                       getAllEmployees={this.getAllEmployees}
                       updateSelectEmployees={this.updateSelectEmployees}

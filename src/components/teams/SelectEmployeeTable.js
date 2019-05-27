@@ -27,18 +27,19 @@ export default function SelectEmployeeTable(props) {
             </div>
           </form>
         </div>
-        <div className="card-body pr-0 pl-0">
+        <div className="card-body pr-0 pl-0 pt-3 pb-3">
           <ul className="list-group list-group-flush list my-n3">   
           {
             filteredArray.map(employees => <SelectEmployeeItem
                                               {...props}
                                               {...employees}
+                                              selectAndChangeStyle={props.selectAndChangeStyle}
                                               itemSelected={props.itemSelected} 
                                               getAllEmployees={props.getAllEmployees} 
                                               updateSelectEmployees={props.updateSelectEmployees}
                                                />)
           }
-          { filteredArray.length === 0 ? "No employees found": ""}
+          { filteredArray.length === 0 ? <p className="text-center pt-5 text-muted">No employees found</p>: ""}
           </ul>
         </div>
       </div>

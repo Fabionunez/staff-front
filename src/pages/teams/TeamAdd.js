@@ -15,8 +15,10 @@ import SelectEmployeeTable from '../../components/teams/SelectEmployeeTable';
 
 class TeamAdd extends Component {
   state = {
+    id: "",
     name: "",
-    usersIds: [], //,"5ce67056592dfa738bf954b3"
+    usersIds: [],
+    usersIdsObj: [],
     teamLeaderid: "",
     companyId: this.props.user.companyID,
     mission: "",
@@ -89,18 +91,19 @@ class TeamAdd extends Component {
 
   updateSelectEmployees = (id) =>{
 
-    console.log(id)
+    var cloneUsersIds = this.state.usersIds.slice(0);
 
-    let checks = document.getElementsByClassName('selectedEmployees');
-    let newChecks = [];
+    let found = this.state.usersIds.find(function(element) { 
+      return element === id;
+    }); 
 
-    for(var i = 0; i < checks.length; i ++){
-      if(checks[i].checked){
-        newChecks.push(checks[i].value)
-      }
-      this.setState({usersIds: newChecks})
+    if(found === undefined){ // Si el id no estaba en la list de usuarios del equipo
+      cloneUsersIds.push(id);
+      this.setState({usersIds: cloneUsersIds});
+    }else{ // Si el id estaba en la lista de usuarios del equipo
+      cloneUsersIds.splice(cloneUsersIds.indexOf(id),1);
+      this.setState({usersIds: cloneUsersIds})
     }
-    
 
   }
 

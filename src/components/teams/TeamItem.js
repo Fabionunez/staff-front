@@ -7,6 +7,7 @@ import IconDelete from 'react-feather/dist/icons/trash-2';
 export default function TeamItem(props) {
 
 
+  
   console.log(props)
 
   return (
