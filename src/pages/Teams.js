@@ -22,6 +22,7 @@ class Teams extends Component {
     .then((response) =>{
         // console.log(response)
         this.setState({teams: response})
+        
     })
     .catch((err) => console.log(err))
 

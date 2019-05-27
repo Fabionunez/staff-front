@@ -16,7 +16,7 @@ import SelectEmployeeTable from '../../components/teams/SelectEmployeeTable';
 class TeamAdd extends Component {
   state = {
     name: "",
-    usersIds: [],
+    usersIds: [], //,"5ce67056592dfa738bf954b3"
     teamLeaderid: "",
     companyId: this.props.user.companyID,
     mission: "",
@@ -37,6 +37,8 @@ class TeamAdd extends Component {
 
   componentDidMount() {
     this.getAllEmployees();
+
+
   }
 
   handleChange = (e) => {
@@ -46,8 +48,8 @@ class TeamAdd extends Component {
   }
   
   updateKeyword = (event) => {
-    console.log("updating keyword")
     this.setState({keyword: event.target.value});
+    
   }
 
 
@@ -85,7 +87,9 @@ class TeamAdd extends Component {
   }
 
 
-  updateSelectEmployees = () =>{
+  updateSelectEmployees = (id) =>{
+
+    console.log(id)
 
     let checks = document.getElementsByClassName('selectedEmployees');
     let newChecks = [];
@@ -97,25 +101,14 @@ class TeamAdd extends Component {
       this.setState({usersIds: newChecks})
     }
     
-    this.state.usersIds.forEach( (check, index, array) => {
-      console.log(check)
-    })
-
 
   }
 
-  checkOrNot = (id) =>{
-
-   //console.log("checked >", id);
-    console.log(document.getElementById(id).checked)
-
-  
-      
-  }
 
   render() {
     const {  user } = this.props; 
-    //console.log(this.state.companyId)
+
+
     return (
         <div>
           <Navbar pathname={this.props.location.pathname} />
@@ -148,7 +141,7 @@ class TeamAdd extends Component {
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="teamLeaderid">Team leader</label>
                           <SelectGroup name="teamLeaderid" id="teamLeaderid"
-                              required>
+                              required onChange={this.handleChange}>
                               <option value="">-- Select one --</option>
                               { 
                                 this.state.employees.map(employee => <option value={employee._id} key={employee._id}>{employee.name} {employee.surname} </option>)
@@ -163,16 +156,16 @@ class TeamAdd extends Component {
 
                     <div className="row">
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
-                      <label htmlFor="mision">Mision <small className="text-muted">(optional)</small></label>
-                      <TextInput name="mision" id="mision" multiline 
-                          value={this.state.mision}
+                      <label htmlFor="mission">Mission <small className="text-muted">(optional)</small></label>
+                      <TextInput name="mission" id="mission" multiline 
+                          value={this.state.mission}
                           onChange={this.handleChange}
                           rows="4"/>
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
-                      <label htmlFor="vission">vission <small className="text-muted">(optional)</small></label>
-                      <TextInput name="vission" id="vission" multiline 
-                          value={this.state.vission}
+                      <label htmlFor="vision">vision <small className="text-muted">(optional)</small></label>
+                      <TextInput name="vision" id="vision" multiline 
+                          value={this.state.vision}
                           onChange={this.handleChange}
                           rows="4"/>
                       </div>
@@ -184,11 +177,10 @@ class TeamAdd extends Component {
                     <label>Select employees</label>
 
                     <SelectEmployeeTable 
-                      {...this.state} 
+                      {...this.state}
                       updateKeyword={this.updateKeyword} 
                       getAllEmployees={this.getAllEmployees}
                       updateSelectEmployees={this.updateSelectEmployees}
-                      checkOrNot={this.checkOrNot}
                       />
 
 

@@ -38,7 +38,7 @@ class EmployeeService {
       country,
       emergencyContact,
       emergencyPhone,
-      managerID,
+      managerID
     } = user;
 
     if(user.imageUrl ===""){
@@ -74,7 +74,6 @@ class EmployeeService {
   employeeView(id) {
     return this.auth.get(`/employee/view/${id}`)
     .then(response => response.data)
-
   }
 
   

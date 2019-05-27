@@ -14222,3 +14222,8 @@ label{
 .card-avatar-top-custom{
   margin-top:-5rem;
 }
+
+.team-counter{
+  font-size: 1.1rem;
+  margin-bottom:5px;
+}

@@ -41,69 +41,43 @@ class TeamService {
 
 
 
-  // teamView(id) {
-  //   return this.auth.get(`/team/view/${id}`)
-  //   .then(response => response.data)
+  teamView(id) {
+    return this.auth.get(`/team/view/${id}`)
+    .then(response => response.data)
 
-  // }
+  }
 
   
-  // teamUpdate(user) {
-  //   const {
-  //     id, 
-  //     username,
-  //     password,
-  //     name,
-  //     surname,
-  //     title,
-  //     companyPhone,
-  //     dateStart,
-  //     birthDate,
-  //     gender,
-  //     nationality,
-  //     phone,
-  //     identificationNumber,
-  //     socialSecurityNumber,
-  //     address,
-  //     city,
-  //     postalCode,
-  //     province,
-  //     country,
-  //     emergencyContact,
-  //     emergencyPhone,
-  //     managerID
-  //    } = user;
+  teamUpdate(user) {
 
-  //    if(user.imageUrl ===""){
-  //     user.imageUrl = "https://res.cloudinary.com/fabionunez/image/upload/v1558806598/staff/user2_e4pwrt.svg";
-  //   }
-  //   return this.auth.put(`/employee/edit`, {      
-  //     id, 
-  //     username,
-  //     password,
-  //     name,
-  //     surname,
-  //     title,
-  //     companyPhone,
-  //     dateStart,
-  //     birthDate,
-  //     gender,
-  //     nationality,
-  //     phone,
-  //     identificationNumber,
-  //     socialSecurityNumber,
-  //     address,
-  //     city,
-  //     postalCode,
-  //     province,
-  //     country,
-  //     emergencyContact,
-  //     emergencyPhone,
-  //     managerID,
-  //     imageUrl: user.imageUrl })
-  //   .then(response => response.data)
 
-  // }
+    const {
+      id, 
+      name,
+      usersIds,
+      teamLeaderid,
+      companyId,
+      mission,
+      vision
+     } = user;
+
+     
+
+    return this.auth.put(`/team/edit`, {
+      id,       
+      name,
+      usersIds,
+      teamLeaderid,
+      companyId,
+      mission,
+      vision })
+    .then(response => response.data)
+
+  }
+
+
+
+
 
   teamDelete(id) {
     return this.auth.delete(`/team/delete/${id}`)

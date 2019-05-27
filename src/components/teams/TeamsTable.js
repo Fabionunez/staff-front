@@ -10,7 +10,7 @@ export default function UserTable(props) {
 
   return (
       <div className="card">
-        <div className="card-body">
+        <div className="card-body pl-0 pr-0">
           <ul className="list-group list-group-flush list my-n3">   
           {
             props.teams.map(team => <TeamItem 

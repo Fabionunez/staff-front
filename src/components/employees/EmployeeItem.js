@@ -7,7 +7,7 @@ import IconAdmin from 'react-feather/dist/icons/star';
 
 export default function EmployeeItem(props) {
 
-  console.log(props)
+
 
 
   const linkDestination = (idItem) =>{
@@ -41,7 +41,7 @@ export default function EmployeeItem(props) {
                 <Link className="stretched-link" to={linkDestination(props.idItem) ? `/employee/edit/${props.idItem}`: `/employee/view/${props.idItem}`} > {props.name} {props.surname}</Link>
               </h4>
               <p className="small mb-0">
-                {props.title} 
+                {props.title}
               </p> 
             </div>
             {(props.userCanDelete() && !props.isItenAdmin) ? <div className="col-auto pr-5">

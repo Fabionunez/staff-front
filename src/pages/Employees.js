@@ -52,6 +52,7 @@ class Employees extends Component {
   render() {
     const {  user } = this.props; 
 
+
     return (
       <div>    
         <Navbar pathname={this.props.location.pathname} />
@@ -74,7 +75,8 @@ class Employees extends Component {
                 </div>
               </div>
               <UserTable 
-                {...this.state} 
+                {...this.state}
+                {...user}
                 userCanDelete={this.userCanDelete} 
                 updateKeyword={this.updateKeyword} 
                 handleDeleting={this.handleDeleting}

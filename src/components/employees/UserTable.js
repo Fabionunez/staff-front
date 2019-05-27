@@ -7,6 +7,7 @@ export default function UserTable(props) {
   const filteredArray = props.employees.filter( employee => {
     return (employee.name + ' ' + employee.surname).toLowerCase().includes(props.keyword.toLowerCase())
   })
+  
 
   return (
     <div className="card">
@@ -22,10 +23,11 @@ export default function UserTable(props) {
                   </div>
                 </form>
               </div>
-              <div className="card-body pl-0 pr-0">
+              <div className="card-body pl-0 pr-0 ">
                 <ul className="list-group list-group-flush list my-n3">   
                 {
                   filteredArray.map(employee => <EmployeeItem  
+                                                  {...props} 
                                                   key={props._id}
                                                   name={employee.name}
                                                   surname={employee.surname}
@@ -40,8 +42,9 @@ export default function UserTable(props) {
                                                   userCanDelete={props.userCanDelete}
                                                     />)
                 }
-                {filteredArray.length === 0 ? "No employees found": ""}
+                
                 </ul>
+                {filteredArray.length === 0 ? <p className="text-center pt-5 text-muted">No employees found</p>: ""}
               </div>
             </div>
   )

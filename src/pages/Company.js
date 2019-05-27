@@ -116,66 +116,99 @@ class Company extends Component {
 
                 <div className="container p-0 m-0" >
 
-            {this.state.confirm ? <div class="alert alert-success" role="alert" style={{"max-width": '350px'}}>Changes saved!</div> : ""}
+            {this.state.confirm ? <div class="alert alert-success" role="alert" style={{"maxWidth": '800px'}}>Changes saved!</div> : ""}
             
-            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{width: '350px'}}>
-                <div className="form-group">
-                    <label htmlFor="corporateName">Corporate name</label>
+            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{maxWidth: '800px'}}>
+                
+              
+              <div className="row">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                  <label htmlFor="corporateName">Corporate name</label>
                     <TextInput name="corporateName" id="corporateName" required
                         value={this.state.corporateName}
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="tradeName">Trade name</label>
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                  <label htmlFor="tradeName">Trade name <small className="text-muted">(optional)</small></label>
                     <TextInput name="tradeName" id="tradeName" 
                         value={this.state.tradeName}
                         onChange={this.handleChange}
                     />
                 </div>
+              </div>          
+              <hr className="mt-4 mb-5" />  
+                
 
-                <div className="form-group">
-                    <label htmlFor="taxIdNumber">Tax ID number</label>
-                    <TextInput name="taxIdNumber" id="taxIdNumber" 
-                        value={this.state.taxIdNumber}
-                        onChange={this.handleChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="address">Adress</label>
+
+
+             
+          
+
+              <div className="row">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                  <label htmlFor="address">Adress <small className="text-muted">(optional)</small></label>
                     <TextInput name="address" id="address" 
                         value={this.state.address}
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="postalCode">Postal code</label>
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                <label htmlFor="postalCode">Postal code <small className="text-muted">(optional)</small></label>
                     <TextInput name="postalCode" id="postalCode" 
                         value={this.state.postalCode}
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group">
-                    <label htmlFor="city">City</label>
+              </div> 
+              <div className="row">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                  <label htmlFor="city">City <small className="text-muted">(optional)</small></label>
                     <TextInput name="city" id="city" 
                         value={this.state.city}
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                  <label htmlFor="province">Province <small className="text-muted">(optional)</small></label>
+                    <TextInput name="province" id="province" 
+                        value={this.state.province}
+                        onChange={this.handleChange}
+                    />
+                </div>
+              </div>
+              <div className="row">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                     <label htmlFor="province">Province</label>
                     <TextInput name="province" id="province" 
                         value={this.state.province}
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className="form-group">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                     <label htmlFor="country">Country</label>
                     <TextInput name="country" id="country" 
                         value={this.state.country}
                         onChange={this.handleChange}
                     />
                 </div>
+              </div>
+              <hr className="mt-4 mb-5" /> 
+
+
+              <div className="row">
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+                  <label htmlFor="taxIdNumber">Tax ID number <small className="text-muted">(optional)</small></label>
+                    <TextInput name="taxIdNumber" id="taxIdNumber" 
+                        value={this.state.taxIdNumber}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
+
+                </div>
+              </div> 
+              <hr className="mt-4 mb-5" /> 
 
                 <div className="form-group">
                     <button className="btn btn-primary" type="submit" style={{width: '100%'}} >Save changes</button>

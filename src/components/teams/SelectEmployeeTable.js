@@ -4,9 +4,13 @@ import IconSearch from 'react-feather/dist/icons/search';
 
 
 export default function SelectEmployeeTable(props) {
+
+
   const filteredArray = props.employees.filter( employee => {
     return (employee.name + ' ' + employee.surname).toLowerCase().includes(props.keyword.toLowerCase())
   })
+
+  //console.log(props.usersIds);
 
 
   return (
@@ -26,11 +30,12 @@ export default function SelectEmployeeTable(props) {
         <div className="card-body pr-0 pl-0">
           <ul className="list-group list-group-flush list my-n3">   
           {
-            filteredArray.map(employees => <SelectEmployeeItem 
-                                              {...employees} 
+            filteredArray.map(employees => <SelectEmployeeItem
+                                              {...props}
+                                              {...employees}
+                                              itemSelected={props.itemSelected} 
                                               getAllEmployees={props.getAllEmployees} 
                                               updateSelectEmployees={props.updateSelectEmployees}
-                                              checkOrNot={props.checkOrNot}
                                                />)
           }
           { filteredArray.length === 0 ? "No employees found": ""}

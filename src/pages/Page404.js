@@ -12,7 +12,7 @@ export default function Page404() {
             </h6>
 
             <h1 className="display-4 mb-3">
-              There’s no page here 😭
+              There’s no page here <span role="img" aria-label="emoji cry" aria-labelledby="emoji cry">😭</span>
             </h1>
             <p className="text-muted mb-4">
               Looks like you ended up here by accident? 

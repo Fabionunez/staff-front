@@ -37,7 +37,8 @@ class EmployeesEdit extends Component {
       managerID: "",
       imageUrl: "",
       submitDisabled: false,
-      userExists: false
+      userExists: false,
+      employees: []
     }
 
 
@@ -57,6 +58,13 @@ class EmployeesEdit extends Component {
               if(employee.message === "error"){ //Check if the email you are editing already exist
                 this.props.history.push("/404")
               }else{
+
+                employeeService.employeesList()
+                .then((response) =>{
+                    this.setState({employees: response})
+                })
+                .catch((err) => console.log(err))
+
                 this.setState( {
                     username: employee.username,
                     name: employee.name,
@@ -488,11 +496,18 @@ class EmployeesEdit extends Component {
 
                     <div className="row">
                       <div className="form-group col-12">
-                        <label htmlFor="managerID">Manager id</label>
-                          <TextInput name="managerID" id="managerID"
-                              value={this.state.managerID}
-                              onChange={this.handleChange}
-                          />
+                          <label htmlFor="managerID">Manager</label>
+                          <SelectGroup name="managerID" id="managerID"
+                              required onChange={this.handleChange}>
+                              <option value="">-- Select one --</option>
+                              { 
+                                this.state.employees.map(employee => <option 
+                                                                      value={employee._id} 
+                                                                      key={employee._id}
+                                                                      selected={this.state.managerID === employee._id.toString() ? "selected" : null}
+                                                                      >{employee.name} {employee.surname}  </option>)
+                              }
+                          </SelectGroup>
                       </div>
                     </div>
 

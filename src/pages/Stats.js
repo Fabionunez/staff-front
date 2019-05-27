@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { withAuth } from '../providers/AuthProvider';
-import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
-import IconSearch from 'react-feather/dist/icons/search';
-import IconAdd from 'react-feather/dist/icons/plus';
-import EmployeeItem from '../components/employees/EmployeeItem';
+import IconClock from 'react-feather/dist/icons/clock';
+
+
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
 
@@ -24,46 +23,13 @@ class Stats extends Component {
 
   } 
 
-  componentDidMount() {
-    this.getAllEmployees();
-  }
-
-  handleDeleting(id){
-    employeeService.employeeDelete(id)
-    .then((response) =>{
-      this.getAllEmployees();
-    })
-    .catch((err) => console.log(err))
-
-  }
-
-
-
-  updateKeyword = (event) => {
-    this.setState({keyword: event.target.value});
-  }
-
-  userCanDelete = () => {
-    let {  user } = this.props; //to pass if it's admin
-    let isAdmin = user.isAdmin;
-    if(isAdmin){
-      return isAdmin;
-    }else{
-      return null;
-    }  
-  }
-
+  
   
 
-
   render() {
-    const filteredArray = this.state.employees.filter( employee => {
-      return (employee.name + ' ' + employee.surname).toLowerCase().includes(this.state.keyword.toLowerCase())
-    })
+ 
 
     const {  user } = this.props; 
-    
-    
 
     return (
 
@@ -87,20 +53,16 @@ class Stats extends Component {
                     Stats 
                   </h1>
                   </div>
-                  {/* {user.isAdmin ?
-                  <div className="col-auto">
-                    <Link to="/employee/add" className="btn btn-primary"><IconAdd size={20} color="white" className="mr-2" />Add employee </Link>
-                  </div>
-                  :""} */}
                 </div>
               </div>
 
 
             <div className="card">
               <div className="card-body">
-                <div class="alert alert-secondary" role="alert">
-                    Soon you will be able see interesting stats about your employees
-                </div>
+                <div class="alert alert-light" role="alert">
+                    <IconClock color="#283e59" size={20} className="mb-1 mr-2" /> Too much for the nvp ;)
+                </div> 
+                
               </div>
             </div>
           </div>

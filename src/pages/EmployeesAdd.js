@@ -39,7 +39,8 @@ class EmployeesAdd extends Component {
         managerID: "",
         imageUrl: "",
         submitDisabled: false,
-        userExists: false
+        userExists: false,
+        employees: []
     }
 
     handleChange = (e) => {
@@ -127,6 +128,25 @@ class EmployeesAdd extends Component {
           
     }
 
+    fileOnchange = (event) => {
+      const file = event.target.files[0];
+      const uploadData = new FormData()
+      uploadData.append('photo', file)
+
+      this.setState({submitDisabled: true})
+  
+      employeeService.imageUpload(uploadData)
+      .then((imageUrl) => {
+        this.setState({
+          imageUrl,
+          submitDisabled: false,
+          submitText: "Save changes"
+        })
+      })
+      .catch((error) => console.log(error))
+    }
+
+
     handleErrorSubmit = (e, formData, errorInputs) => {
         console.error(errorInputs)
     }
@@ -139,6 +159,16 @@ class EmployeesAdd extends Component {
       this.setState({
         birthDate: date
       });
+    }
+
+    componentDidMount = () =>{
+
+      employeeService.employeesList()
+      .then((response) =>{
+          this.setState({employees: response})
+      })
+      .catch((err) => console.log(err))
+      
     }
 
     render () {
@@ -426,12 +456,22 @@ class EmployeesAdd extends Component {
 
                     <div className="row">
                       <div className="form-group col-12">
-                        <label htmlFor="managerID">Manager id</label>
-                        <TextInput name="managerID" id="managerID"
-                            value={this.state.managerID}
-                            onChange={this.handleChange}
-                        />
+                      <label htmlFor="managerID">Manager</label>
+                          <SelectGroup name="managerID" id="managerID"
+                              required onChange={this.handleChange}>
+                              <option value="">-- Select one --</option>
+                              { 
+                                this.state.employees.map(employee => <option 
+                                                                      value={employee._id} 
+                                                                      key={employee._id}
+                                                                      selected={this.state.managerID === employee._id.toString() ? "selected" : null}
+                                                                      >{employee.name} {employee.surname}  </option>)
+                              }
+                          </SelectGroup>
                       </div>
+
+
+                      
                     </div>
 
 

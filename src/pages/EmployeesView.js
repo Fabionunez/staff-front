@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { ValidationForm, TextInput, FileInput } from 'react-bootstrap4-form-validation';
-import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
-import { Link } from 'react-router-dom';
 
 import employeeService from '../lib/employee-service';
 import Navbar from '../components/Navbar';
@@ -75,7 +72,6 @@ class EmployeesView extends Component {
 
 
                   <div className="card" style={{maxWidth: '600px'}}>
-                  {/* <img src="http://bostoncolumn.com/wp-content/uploads/2018/10/header-background-image-background-header-1.jpg" alt="..." className="card-img-top" /> */}
                   <img src="https://res.cloudinary.com/fabionunez/image/upload/v1558809492/staff/background_ple0qi.png" alt="..." className="card-img-top" />
                     <div className="card-body text-center pb-0">
                       <a href="profile-posts.html" className="avatar-custom card-avatar card-avatar-top-custom" style={{}}>
