@@ -9,7 +9,8 @@ import Logo from '../img/logo.svg';
 class Login extends Component {
   state = {
       username: "",
-      password: ""
+      password: "",
+      immediate: false
   }
 
   handleChange = (e) => {
@@ -52,9 +53,13 @@ class Login extends Component {
 
                 <h1 class="display-4 text-center mb-3">Sign in</h1>
                 <p class="text-muted text-center mb-5">Enter in your private dashboard.</p>
-            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
+            <ValidationForm 
+                immediate={this.state.immediate} 
+                className="text-left" 
+                onSubmit={this.handleSubmit} 
+                onErrorSubmit={this.handleErrorSubmit}>
                 <div className="form-group">
-                    <TextInput name="username" id="username" type="email" 
+                    <TextInput name="username" id="username" type="email"
                         placeholder="E-mail"
                         validator={validator.isEmail} 
                         errorMessage={{validator:"Please enter a valid email"}}

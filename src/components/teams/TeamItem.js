@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
 import IconDelete from 'react-feather/dist/icons/trash-2';
+import ReactTooltip from 'react-tooltip'
 
 
 
@@ -8,27 +9,21 @@ export default function TeamItem(props) {
 
 
   
-  console.log(props)
+  console.log("props teamItem :", props)
 
   return (
       <li className="list-group-item px-0" key={props.idItem}>         
           <div className="row align-items-center">
 
-            <div className="col-auto ml-4 pr-0">  
-              {/* <div className="avatar-group">
-                <a href="profile-posts.html" className="avatar avatar-xs">
-                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-3.jpg" className="avatar-img rounded-circle" alt="..." />
-                </a>
-                <a href="profile-posts.html" className="avatar avatar-xs">
-                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-4.jpg" className="avatar-img rounded-circle" alt="..." />
-                </a>
-                <a href="profile-posts.html" className="avatar avatar-xs">
-                  <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-5.jpg" className="avatar-img rounded-circle" alt="..." />
-                </a>
-                <div className="avatar avatar-xs">
-                  <div className="avatar-title rounded-circle">+7</div>
-                </div>
-              </div> */}
+            <div className="col-auto ml-4 pr-0 d-flex justify-content-end"  style={{minWidth: '100px'}}>
+              <ReactTooltip className='custom-tooltip' />
+              <div className="avatar-group">
+              {props.usersIds.slice(0, 3).map((user) => <span className="avatar avatar-xs" data-tip={`${user.name}`}>
+                  <img src={user.imageUrl} className="avatar-img rounded-circle" alt="..." />
+                </span>)}
+              {props.usersIds.length > 3 ? <div className="avatar avatar-xs"><Link style={{"font-size":"11px"}}  to={`/teams/edit/${props._id}`} data-tip={`And ${props.usersIds.length - 3} more`} className="avatar-title rounded-circle">+{props.usersIds.length - 3}</Link></div> : "" }
+                
+              </div>
               {/* <span class="badge badge-soft-primary">{props.usersIds.length} {props.usersIds.length === 1 ? "employee": "employees"}</span> */}
             </div>
 

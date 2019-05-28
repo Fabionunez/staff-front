@@ -14231,3 +14231,16 @@ label{
 .itemSelected{
   background-color:#fcf9ec;
 }
+
+
+.custom-tooltip{
+  font-size: .8125rem;
+  padding:3px 8px 3px 8px;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+body {
+  position: relative
+}

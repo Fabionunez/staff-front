@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import IconDelete from 'react-feather/dist/icons/trash-2';
 import IconAdmin from 'react-feather/dist/icons/star';
+import ReactTooltip from 'react-tooltip'
 
 
 
@@ -27,12 +28,14 @@ export default function EmployeeItem(props) {
 
 
   return (
-      <li className="list-group-item px-0" key={props.idItem}>         
+      <li className="list-group-item px-0" key={props.idItem}>
+        <ReactTooltip className='custom-tooltip' />
+         
           <div className="row align-items-center">
             <div className="col-auto ml-4">
               <Link to={linkDestination(props.idItem) ? `/employee/edit/${props.idItem}`: `/employee/view/${props.idItem}`} className="avatar">
                 <img src={props.imageUrl} alt="..." className="avatar-img rounded-circle" />
-                {props.isItenAdmin ?<div className="adminBadge" title="Admin of the account"><IconAdmin size={22} color="white" className="adminBadgeIcon" /></div> :""}
+                {props.isItenAdmin ?<div className="adminBadge" data-tip="Administrator"><IconAdmin size={22} color="white" className="adminBadgeIcon" /></div> :""}
               </Link>
             </div>
            

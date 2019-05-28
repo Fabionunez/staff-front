@@ -63,12 +63,12 @@ class Signup extends Component {
     render () {
         return (
         <div class="row justify-content-center  border-top border-top-2 border-primary">
-            <div class="col-12 col-md-5 col-xl-4 my-5  text-center align-items-center">
+            <div class="col-12 col-md-5 col-xl-4 my-5  text-center align-items-center p-4">
                 <img src={Logo} className="text-center pb-5" style={{width:"300px"}} alt="..." />
 
                 <h1 class="display-4 text-center mb-3">Sign up</h1>
                 <p class="text-muted text-center mb-5">Human resource manager toolkit.</p>
-            <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
+            <ValidationForm className="text-left" onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit}>
                 <div className="form-group">
                     <TextInput name="name" id="name" required
                         placeholder="Name"
