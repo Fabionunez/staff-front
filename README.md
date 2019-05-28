@@ -1,5 +1,10 @@
 # Staff
 
+
+![Staff](https://staff-ironhack.herokuapp.com/static/media/logo.8)
+
+
+
 ## Description
 
 Film Trails allows to find spots by location where movies or tv shows were filmed. The user can also upload spots to the site.
