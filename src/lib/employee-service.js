@@ -76,6 +76,11 @@ class EmployeeService {
     .then(response => response.data)
   }
 
+  employeeViewEdit(id) {
+    return this.auth.get(`/employee/edit/${id}`)
+    .then(response => response.data)
+  }
+
   
   employeeUpdate(user) {
     const {

@@ -48,7 +48,7 @@ class EmployeesEdit extends Component {
 
         const { id } = this.props.match.params
 
-        employeeService.employeeView(id)
+        employeeService.employeeViewEdit(id)
         .then((employee) => {
 
             if(employee.permissions === false){ // Check if you have permissions to see this user

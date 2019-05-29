@@ -9,9 +9,9 @@ class CompanyService {
   }
 
   companyUpdate(user) {
-    const {tradeName, corporateName, taxIdNumber, address, city, postalCode, province, country} = user;
+    const {tradeName, corporateName, taxIdNumber, address, city, postalCode, province, country, imageUrl} = user;
   
-    return this.auth.put(`/company`, {tradeName, corporateName, taxIdNumber, address, city, postalCode, province, country})
+    return this.auth.put(`/company`, {tradeName, corporateName, taxIdNumber, address, city, postalCode, province, country, imageUrl})
     .then(response => response.data)
 
   }
@@ -21,6 +21,11 @@ class CompanyService {
     return this.auth.get(`/company`)
     .then(response => response.data)
   } 
+
+  imageUpload(file) {
+    return this.auth.post('/company/image', file)
+    .then(({data}) => data)
+  }
 
 
 }

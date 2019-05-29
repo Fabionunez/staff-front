@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
-import { ValidationForm, TextInput } from 'react-bootstrap4-form-validation';
+import { ValidationForm, TextInput, FileInput } from 'react-bootstrap4-form-validation';
 import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
 import Navbar from '../components/Navbar';
@@ -17,7 +16,10 @@ class Company extends Component {
       city: "",
       postalCode: "",
       province: "",
-      country: ""
+      country: "",
+      imageUrl: "",
+      submitDisabled: false,
+
     }
 
 
@@ -34,7 +36,7 @@ class Company extends Component {
             this.props.history.push("/404")
 
         }else{
-
+          console.log("imageUrl :", this.state.imageUrl);
           this.setState( {
             tradeName: company.tradeName,
             corporateName: company.corporateName,
@@ -44,8 +46,10 @@ class Company extends Component {
             postalCode: company.postalCode,
             province: company.province,
             country: company.country,
+            imageUrl: company.imageUrl,
             confirm: false
           });
+          console.log("imageUrl :", this.state.imageUrl);
 
         }
 
@@ -66,17 +70,28 @@ class Company extends Component {
     handleSubmit = (e, formData, inputs) => {
         e.preventDefault();
 
-        const tradeName = this.state.tradeName;
-        const corporateName = this.state.corporateName;
-        const taxIdNumber = this.state.taxIdNumber;
-        const address = this.state.address;
-        const city = this.state.city;
-        const postalCode = this.state.postalCode;
-        const province = this.state.province;  
-        const country = this.state.country;  
+        const { 
+          tradeName, 
+          corporateName, 
+          taxIdNumber, 
+          address, city, 
+          postalCode, 
+          province, 
+          country,
+          imageUrl
+         } = this.state;
+
         
 
-        companyService.companyUpdate({tradeName, corporateName, taxIdNumber, address, city, postalCode, province, country})
+        companyService.companyUpdate({tradeName, 
+                                      corporateName, 
+                                      taxIdNumber, 
+                                      address, 
+                                      city, 
+                                      postalCode, 
+                                      province, 
+                                      country,
+                                      imageUrl})
           .then(() => {
             window.scroll(0, window.pageYOffset - this.props.scrollStepInPx)
             this.props.history.push("/company")
@@ -94,6 +109,24 @@ class Company extends Component {
 
     matchPassword = (value) => {
         return value && value === this.state.password;   
+    }
+
+    fileOnchange = (event) => {
+      const file = event.target.files[0];
+      const uploadData = new FormData()
+      uploadData.append('photo', file)
+
+      this.setState({submitDisabled: true})
+  
+      companyService.imageUpload(uploadData)
+      .then((imageUrl) => {
+        this.setState({
+          imageUrl,
+          submitDisabled: false,
+          submitText: "Save changes"
+        })
+      })
+      .catch((error) => console.log(error))
     }
 
     render () {
@@ -120,7 +153,33 @@ class Company extends Component {
             
             <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{maxWidth: '800px'}}>
                 
-              
+
+            <div className="row">
+              <div className="col" >
+                  <div className="company-photo">
+                      <img src={this.state.imageUrl === "" ? "https://res.cloudinary.com/fabionunez/image/upload/v1558793227/staff/user_swbbnl.svg": this.state.imageUrl}  alt="..." />
+                  </div>
+              </div>
+              <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0 pt-3">
+                <label htmlFor="imageUrl">Company logo  <small className="text-muted">(optional)</small></label>
+                <FileInput 
+                    name="imageUrl" 
+                    id="imageUrl" 
+                    onChange={this.fileOnchange} 
+                    fileType={["jpg", "png", "jpeg"]}
+                    maxFileSize="1000 kb" 
+                    errorMessage={
+                        { fileType:"Only pdf and excel is allowed", 
+                        maxFileSize: "Max file size is 1000 kb"
+                        }
+                    }/>
+                <small className="form-text text-muted pt-3">The image file should be under 1Mb</small>
+              </div>
+            </div>
+            <hr className="mt-4 mb-5" />  
+
+
+
               <div className="row">
                 <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                   <label htmlFor="corporateName">Corporate name</label>
@@ -211,7 +270,7 @@ class Company extends Component {
               <hr className="mt-4 mb-5" /> 
 
                 <div className="form-group">
-                    <button className="btn btn-primary" type="submit" style={{width: '100%'}} >Save changes</button>
+                    <button className="btn btn-primary" type="submit" style={{width: '100%'}}  disabled={this.state.submitDisabled ? "disabled": null} >Save changes</button>
                 </div>
             </ValidationForm>
             </div>
