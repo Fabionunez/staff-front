@@ -5,7 +5,7 @@ import { withAuth } from '../providers/AuthProvider';
 import NavBarMenu from './NavBarMenu';
 import companyService from '../lib/company-service';
 
-
+import logo from '../img/logo.svg';
 
 class Navbar extends Component {
   state ={
@@ -63,7 +63,7 @@ class Navbar extends Component {
           </button>
 
           <Link to="/" className="navbar-brand" href="index.html">
-            <img src={this.state.logo} className="navbar-brand-img mx-auto" alt="..." />
+            <img src={logo} className="navbar-brand-img mx-auto" alt="..." />
           </Link>
 
           <div className="navbar-user d-md-none">
