@@ -22,7 +22,7 @@ export default function UserTable(props) {
                                       
                                         />)
           }
-          { props.teams.length === 0 ? <p className="text-center pt-5 text-muted">No teams found </p>: ""}
+          {/* { props.teams.length === 0 ? <p className="text-center pt-5 text-muted">No teams found </p>: ""} */}
           </ul>
         </div>
       </div>

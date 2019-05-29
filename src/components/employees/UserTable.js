@@ -44,7 +44,7 @@ export default function UserTable(props) {
                 }
                 
                 </ul>
-                {filteredArray.length === 0 ? <p className="text-center pt-5 text-muted">No employees found</p>: ""}
+                {filteredArray.length === 0 && props.keyword.length >0 ? <p className="text-center pt-5 text-muted">No employees found</p>: ""}
               </div>
             </div>
   )

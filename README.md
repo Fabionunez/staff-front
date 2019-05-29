@@ -442,6 +442,4 @@ The url to your repository and to your deployed project
 
 ### Slides
 
-The url to your presentation slides
-
 [Slides Link](https://docs.google.com/presentation/d/1Iy5UzkjVc-4k4QRMX7yQ6QJFifXiKckxPhjhqowOQtI/edit?usp=sharing)
