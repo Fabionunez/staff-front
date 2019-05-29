@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import employeeService from '../lib/employee-service';
 
 import IconAdd from 'react-feather/dist/icons/plus';
-
+import Navbar from '../components/Navbar';
+import TopBar from '../components/TopBar';
 import UserTable from '../components/employees/UserTable';
 
 
@@ -53,7 +54,11 @@ class Employees extends Component {
 
 
     return (
-        <>
+      <div>    
+        <Navbar pathname={this.props.location.pathname} />
+        <div className="main-content">
+          <TopBar {...user} />
+          <div className="main-content-padding">
               <div className="header-body header-employees">
                 <div className="row align-items-center">
                   <div className="col">
@@ -77,9 +82,9 @@ class Employees extends Component {
                 handleDeleting={this.handleDeleting}
                 getAllEmployees={this.getAllEmployees}  
               />
-          </>
-              
-
+          </div>
+        </div>
+      </div>
     )
   }
 }
