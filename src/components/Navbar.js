@@ -3,33 +3,15 @@ import { Link } from 'react-router-dom';
 import { withAuth } from '../providers/AuthProvider';
 
 import NavBarMenu from './NavBarMenu';
-import companyService from '../lib/company-service';
 
-import logo from '../img/logo.svg';
 
 class Navbar extends Component {
   state ={
     showMenu: false,
-    classMenu: "collapse navbar-collapse",
-    logo: ""
+    classMenu: "collapse navbar-collapse"
   }
 
-  componentDidMount(){
 
-    companyService.logoView(this.props.user.companyID)
-    .then((company) => {
-      console.log(company.imageUrl);
-      if(company.imageUrl !== undefined){
-        this.setState({logo: company.imageUrl})
-      }else{
-
-        this.setState({logo: "/img/logo.svg"})
-      }
-
-    })
-    .catch((err) => console.log(err))
-
-  }
 
   toogleMenu = () =>{
     console.log(this.state.showMenu);
@@ -63,7 +45,7 @@ class Navbar extends Component {
           </button>
 
           <Link to="/" className="navbar-brand" href="index.html">
-            <img src={logo} className="navbar-brand-img mx-auto" alt="..." />
+            <img src="/img/logo.svg" className="navbar-brand-img mx-auto" alt="..." />
           </Link>
 
           <div className="navbar-user d-md-none">
