@@ -129,6 +129,11 @@ class Company extends Component {
       .catch((error) => console.log(error))
     }
 
+    defaultLogo = () =>{
+      this.setState({imageUrl: "/img/logo.svg"})
+
+    }
+
     render () {
         const {  user } = this.props; 
 
@@ -157,7 +162,8 @@ class Company extends Component {
             <div className="row">
               <div className="col" >
                   <div className="company-photo">
-                      <img src={this.state.imageUrl === "" ? "https://res.cloudinary.com/fabionunez/image/upload/v1558793227/staff/user_swbbnl.svg": this.state.imageUrl}  alt="..." />
+                      <img src={this.state.imageUrl === undefined ? "/img/logo.svg": this.state.imageUrl}  alt="..." />
+                      
                   </div>
               </div>
               <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0 pt-3">
@@ -174,6 +180,7 @@ class Company extends Component {
                         }
                     }/>
                 <small className="form-text text-muted pt-3">The image file should be under 1Mb</small>
+                {this.state.imageUrl === undefined  || this.state.imageUrl === "/img/logo.svg" ? "": <a href="javascript:;" onClick={this.defaultLogo}>Default logo</a>}
               </div>
             </div>
             <hr className="mt-4 mb-5" />  

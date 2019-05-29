@@ -16,12 +16,13 @@ class Navbar extends Component {
 
   componentDidMount(){
 
-    companyService.companyView(this.props.user._id)
+    companyService.logoView(this.props.user.companyID)
     .then((company) => {
       console.log(company.imageUrl);
-      if(company.imageUrl !== ""){
+      if(company.imageUrl !== undefined){
         this.setState({logo: company.imageUrl})
       }else{
+
         this.setState({logo: "/img/logo.svg"})
       }
 

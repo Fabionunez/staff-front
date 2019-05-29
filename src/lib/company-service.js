@@ -27,6 +27,11 @@ class CompanyService {
     .then(({data}) => data)
   }
 
+  logoView(id){
+    return this.auth.get(`/company/logo`)
+    .then(response => response.data)   
+  }
+
 
 }
 
