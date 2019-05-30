@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { ValidationForm, TextInput, SelectGroup, Checkbox, Radio, FileInput, BaseFormControl } from "react-bootstrap4-form-validation"
-import validator from 'validator';
+import { ValidationForm, TextInput, SelectGroup } from "react-bootstrap4-form-validation"
 import { withAuth } from '../../providers/AuthProvider';
-import { Link } from 'react-router-dom';
 
 import employeeService from '../../lib/employee-service';
 import teamService from '../../lib/team-service';
@@ -85,7 +83,7 @@ class TeamAdd extends Component {
   }
 
   handleErrorSubmit = (e, formData, errorInputs) => {
-      console.error(errorInputs)
+      //console.error(errorInputs)
   }
 
 
@@ -130,7 +128,7 @@ class TeamAdd extends Component {
             <div className="container p-0 m-0" >
 
                 <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{maxWidth: '800px'}}>
-                    {/* <input type="hidden" id="id" name="id" value={this.props.match.params.id} /> */}
+
 
 
                     <div className="row">
@@ -147,7 +145,7 @@ class TeamAdd extends Component {
                               required onChange={this.handleChange}>
                               <option value="">-- Select one --</option>
                               { 
-                                this.state.employees.map(employee => <option value={employee._id} key={employee._id}>{employee.name} {employee.surname} </option>)
+                                this.state.employees.map(employee => <option value={employee._id} key={`teamLeaderid-TeamAdd-${employee._id}`}>{employee.name} {employee.surname} </option>)
                               }
                           </SelectGroup>
                       </div>

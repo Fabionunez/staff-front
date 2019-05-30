@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { withAuth } from '../providers/AuthProvider';
+import { withAuth } from '../../providers/AuthProvider';
 import { Link } from 'react-router-dom';
-import employeeService from '../lib/employee-service';
+
+import employeeService from '../../lib/employee-service';
 
 import IconAdd from 'react-feather/dist/icons/plus';
-import Navbar from '../components/Navbar';
-import TopBar from '../components/TopBar';
-import UserTable from '../components/employees/UserTable';
+
+import Navbar from '../../components/Navbar';
+import TopBar from '../../components/TopBar';
+import UserTable from '../../components/employees/UserTable';
 
 
 class Employees extends Component {
@@ -15,6 +17,7 @@ class Employees extends Component {
     keyword: "",
     filterEmployees: []
   }
+
   getAllEmployees = () =>{
     employeeService.employeesList()
     .then((response) =>{
@@ -40,7 +43,7 @@ class Employees extends Component {
   }
 
   userCanDelete = () => {
-    let {  user } = this.props; //to pass if it's admin
+    let {  user } = this.props;
     let isAdmin = user.isAdmin;
     if(isAdmin){
       return isAdmin;
@@ -64,7 +67,7 @@ class Employees extends Component {
                   <div className="col">
                   <h6 className="header-pretitle">All</h6>
                   <h1 className="header-title">
-                    Employees <span className="badge badge-soft-secondary" style={{"font-size":"10px"}}>{this.state.employees.length}</span>
+                    Employees <span className="badge badge-soft-secondary" style={{"fontSize":"10px"}}>{this.state.employees.length}</span>
                   </h1>
                   </div>
                   {user.isAdmin ?

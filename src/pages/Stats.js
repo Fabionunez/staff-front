@@ -59,7 +59,7 @@ class Stats extends Component {
 
             <div className="card">
               <div className="card-body">
-                <div class="alert alert-light" role="alert">
+                <div className="alert alert-light" role="alert">
                     <IconClock color="#283e59" size={20} className="mb-1 mr-2" /> Too much for the nvp ;)
                 </div> 
                 

@@ -14,7 +14,6 @@ class Navbar extends Component {
 
 
   toogleMenu = () =>{
-    console.log(this.state.showMenu);
     if(this.state.showMenu === false){
       this.setState({showMenu:true, classMenu: "collapse navbar-collapse show menuheight" })
     }else{
@@ -24,16 +23,13 @@ class Navbar extends Component {
 
   clickMenuItem = () =>{
     this.setState({showMenu:false, classMenu: "collapse navbar-collapse"})
-    console.log("in the function clickMenuItem");
-    console.log(this.state.classMenu);
   }
 
 
   render(){
-    const pathname = this.props.pathname;
 
     
-    const {user, logout } = this.props;
+    const { user } = this.props;
 
     return(
     <nav className="navbar navbar-vertical fixed-left navbar-expand-md navbar-light" id="sidebar">
@@ -67,11 +63,3 @@ class Navbar extends Component {
 }
 
 export default withAuth(Navbar);
-
-
-              {/* <div className="dropdown-menu dropdown-menu-right" aria-labelledby="sidebarIcon">
-                <a href="profile-posts.html" className="dropdown-item">Profile</a>
-                <a href="settings.html" className="dropdown-item">Company</a>
-                <hr className="dropdown-divider" />
-                <a href="sign-in.html"  onClick={logout} className="dropdown-item">Logout</a>
-              </div> */}

@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { withAuth } from '../providers/AuthProvider';
+import { withAuth } from '../../providers/AuthProvider';
 
-import employeeService from '../lib/employee-service';
-import Navbar from '../components/Navbar';
-import TopBar from '../components/TopBar';
+import employeeService from '../../lib/employee-service';
+import Navbar from '../../components/Navbar';
+import TopBar from '../../components/TopBar';
 
 
 class EmployeesView extends Component {
     state = {
-        username: "", //mail
+        username: "", 
         name: "",
         surname: "",
         title: "",
@@ -16,15 +16,12 @@ class EmployeesView extends Component {
         dateStart: "",
         birthDate: "",
         managerID: "",
-        imageUrl: "",
-        managerID: ""
+        imageUrl: ""
       }
   
   
       componentDidMount(){
-  
-          let { user } = this.props; 
-  
+    
           const { id } = this.props.match.params
   
           employeeService.employeeView(id)
@@ -127,7 +124,7 @@ class EmployeesView extends Component {
 
                       <div className="row align-items-center">
                         <div className="col">
-                        <a class="btn btn-primary d-block" href={`mailto:{this.state.username}`} role="button">Contact</a>
+                        <a className="btn btn-primary d-block" href={`mailto:{this.state.username}`} role="button">Contact</a>
                         </div>
       
                       </div> {/* / .row */}

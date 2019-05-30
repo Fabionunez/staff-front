@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ValidationForm, TextInput, SelectGroup, Checkbox, Radio, FileInput, BaseFormControl } from "react-bootstrap4-form-validation"
+import { ValidationForm, TextInput, SelectGroup} from "react-bootstrap4-form-validation"
 import { withAuth } from '../../providers/AuthProvider';
 
 import employeeService from '../../lib/employee-service';
@@ -50,8 +50,6 @@ class TeamEdit extends Component {
           return user._id.toString();
         });
 
-        console.log("componenDidMount team >", team)
-
         this.setState( {
           id: team._id,
           name: team.name,
@@ -62,7 +60,6 @@ class TeamEdit extends Component {
           vision: team.vision
         });
 
-      console.log("this.state.usersIds componentDidMount: ",this.state.usersIds);
 
       })
       .catch((err) => console.log(err))
@@ -194,7 +191,7 @@ class TeamEdit extends Component {
                               { 
                                 this.state.employees.map(employee => <option 
                                                                       value={employee._id} 
-                                                                      key={employee._id}
+                                                                      key={`teamLeaderid-TeamEdit-${employee._id}`}
                                                                       selected={this.state.teamLeaderid === employee._id.toString() ? "selected" : null}
                                                                       >{employee.name} {employee.surname}  </option>)
                               }

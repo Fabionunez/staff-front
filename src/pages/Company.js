@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ValidationForm, TextInput, FileInput } from 'react-bootstrap4-form-validation';
-import validator from 'validator';
 import { withAuth } from '../providers/AuthProvider';
 import Navbar from '../components/Navbar';
 import TopBar from '../components/TopBar';
@@ -36,7 +35,6 @@ class Company extends Component {
             this.props.history.push("/404")
 
         }else{
-          console.log("imageUrl :", this.state.imageUrl);
           this.setState( {
             tradeName: company.tradeName,
             corporateName: company.corporateName,
@@ -49,7 +47,6 @@ class Company extends Component {
             imageUrl: company.imageUrl,
             confirm: false
           });
-          console.log("imageUrl :", this.state.imageUrl);
 
         }
 
@@ -104,7 +101,7 @@ class Company extends Component {
     }
 
     handleErrorSubmit = (e, formData, errorInputs) => {
-        console.error(errorInputs)
+        // console.error(errorInputs)
     }
 
     matchPassword = (value) => {
@@ -180,7 +177,7 @@ class Company extends Component {
                         }
                     }/>
                 <small className="form-text text-muted pt-3">The image file should be under 1Mb</small>
-                {this.state.imageUrl === undefined  || this.state.imageUrl === "/img/logo.svg" ? "": <a href="javascript:;" onClick={this.defaultLogo}>Default logo</a>}
+                {this.state.imageUrl === undefined  || this.state.imageUrl === "/img/logo.svg" ? "": <button className="btn btn-link" onClick={this.defaultLogo}>Default logo</button>}
               </div>
             </div>
             <hr className="mt-4 mb-5" />  

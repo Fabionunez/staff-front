@@ -24,11 +24,10 @@ export default function UserTable(props) {
                 </form>
               </div>
               <div className="card-body pl-0 pr-0 ">
-                <ul className="list-group list-group-flush list my-n3">   
+                <ul className="list-group list-group-flush list my-n3">  {/*...props*/}  
                 {
                   filteredArray.map(employee => <EmployeeItem  
-                                                  {...props} 
-                                                  key={props._id}
+                                                  key={`EmployeeItem-${employee._id}`}
                                                   name={employee.name}
                                                   surname={employee.surname}
                                                   title={employee.title}

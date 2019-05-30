@@ -33,6 +33,7 @@ export default function SelectEmployeeTable(props) {
             filteredArray.map(employees => <SelectEmployeeItem
                                               {...props}
                                               {...employees}
+                                              key={`select-employee-${employees._id}`}
                                               selectAndChangeStyle={props.selectAndChangeStyle}
                                               itemSelected={props.itemSelected} 
                                               getAllEmployees={props.getAllEmployees} 

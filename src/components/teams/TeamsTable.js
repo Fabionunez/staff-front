@@ -14,7 +14,8 @@ export default function UserTable(props) {
           <ul className="list-group list-group-flush list my-n3">   
           {
             props.teams.map(team => <TeamItem 
-                                      {...team} 
+                                      {...team}
+                                      key={team._id} 
                                       isAdmin={props.isAdmin}
                                       handleDeleting={props.handleDeleting}  
                                       getAllTeams={props.getAllTeams}

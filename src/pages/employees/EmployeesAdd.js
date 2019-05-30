@@ -1,98 +1,44 @@
 import React, { Component } from 'react'
-import { ValidationForm, TextInput, SelectGroup, Checkbox, Radio, FileInput, BaseFormControl } from "react-bootstrap4-form-validation"
+import { ValidationForm, TextInput, SelectGroup, Radio, FileInput } from "react-bootstrap4-form-validation"
 import validator from 'validator';
-import { withAuth } from '../providers/AuthProvider';
-import { Link } from 'react-router-dom';
+import { withAuth } from '../../providers/AuthProvider';
 
-import employeeService from '../lib/employee-service';
-import companyService from '../lib/company-service';
+import employeeService from '../../lib/employee-service';
 
-import Navbar from '../components/Navbar';
-import TopBar from '../components/TopBar';
+import Navbar from '../../components/Navbar';
+import TopBar from '../../components/TopBar';
 
-import MaskWithValidation from '../components/employees/MaskWithValidation'
+import MaskWithValidation from '../../components/employees/MaskWithValidation'
 
-class EmployeesEdit extends Component {
+
+
+class EmployeesAdd extends Component {
     state = {
-      username: "", //mail
-      password: "",
-      name: "",
-      surname: "",
-      title: "",
-      companyPhone: "",
-      dateStart: "",
-      birthDate: "",
-      gender: "",
-      nationality: "",
-      phone: "",
-      identificationNumber: "",
-      socialSecurityNumber: "",
-      address: "",
-      city: "",
-      postalCode: "",
-      province: "",
-      country: "",
-      emergencyContact: "",
-      emergencyPhone: "",
-      managerID: "",
-      imageUrl: "",
-      submitDisabled: false,
-      userExists: false,
-      employees: []
-    }
-
-
-    componentDidMount(){
-
-        let {  user } = this.props; 
-
-        const { id } = this.props.match.params
-
-        employeeService.employeeViewEdit(id)
-        .then((employee) => {
-
-            if(employee.permissions === false){ // Check if you have permissions to see this user
-              this.props.history.push("/employees")
-            
-            }else{
-              if(employee.message === "error"){ //Check if the email you are editing already exist
-                this.props.history.push("/404")
-              }else{
-
-                employeeService.employeesList()
-                .then((response) =>{
-                    this.setState({employees: response})
-                })
-                .catch((err) => console.log(err))
-
-                this.setState( {
-                    username: employee.username,
-                    name: employee.name,
-                    surname: employee.surname,
-                    title: employee.title,
-                    companyPhone: employee.companyPhone,
-                    dateStart: employee.dateStart,
-                    birthDate: employee.birthDate,
-                    gender: employee.gender,
-                    nationality: employee.nationality,
-                    phone: employee.phone,
-                    identificationNumber: employee.identificationNumber,
-                    socialSecurityNumber: employee.socialSecurityNumber,
-                    address: employee.address,
-                    city: employee.city,
-                    postalCode: employee.postalCode,
-                    province: employee.province,
-                    country: employee.country,
-                    emergencyContact: employee.emergencyContact,
-                    emergencyPhone: employee.emergencyPhone,
-                    managerID: employee.managerID,
-                    imageUrl: employee.imageUrl
-
-                });
-             } 
-            }
-        })
-        .catch(error => console.log(error) )
+        username: "", //mail
+        password: "",
+        name: "",
+        surname: "",
+        title: "",
+        companyPhone: "",
+        dateStart: "",
+        birthDate: "",
+        gender: "",
+        nationality: "",
+        phone: "",
+        identificationNumber: "",
+        socialSecurityNumber: "",
+        address: "",
+        city: "",
+        postalCode: "",
+        province: "",
+        country: "",
+        emergencyContact: "",
+        emergencyPhone: "",
+        managerID: "",
+        imageUrl: "",
+        submitDisabled: false,
+        userExists: false,
+        employees: []
     }
 
     handleChange = (e) => {
@@ -101,98 +47,69 @@ class EmployeesEdit extends Component {
         })
     }
 
-    handleChangeDates = (date) => {
-      this.setState({
-        birthDate: date
-      });
-    }
-
     handleSubmit = (e, formData, inputs) => {
         e.preventDefault();
 
-        // const name = this.state.name;
-        // const surname = this.state.surname;
-        // const username = this.state.username;
-        // const title = this.state.title;
-        // const password = this.state.password;
-        const id = this.props.match.params.id;
-
-
         const { 
-          username,
-          password,
-          name,
-          surname,
-          title,
-          companyPhone,
-          dateStart,
-          birthDate,
-          gender,
-          nationality,
-          phone,
-          identificationNumber,
-          socialSecurityNumber,
-          address,
-          city,
-          postalCode,
-          province,
-          country,
-          emergencyContact,
-          emergencyPhone,
-          managerID,
-          imageUrl
-         } = this.state;
+            username,
+            password,
+            name,
+            surname,
+            title,
+            companyPhone,
+            dateStart,
+            birthDate,
+            gender,
+            nationality,
+            phone,
+            identificationNumber,
+            socialSecurityNumber,
+            address,
+            city,
+            postalCode,
+            province,
+            country,
+            emergencyContact,
+            emergencyPhone,
+            managerID,
+            imageUrl } = this.state;
 
 
-
-        employeeService.employeeUpdate({ 
-          id,           
-          username,
-          password,
-          name,
-          surname,
-          title,
-          companyPhone,
-          dateStart,
-          birthDate,
-          gender,
-          nationality,
-          phone,
-          identificationNumber,
-          socialSecurityNumber,
-          address,
-          city,
-          postalCode,
-          province,
-          country,
-          emergencyContact,
-          emergencyPhone,
-          managerID,
-          imageUrl })
-        .then((employee) => {
-
-
-          if(employee.userExists){
-
-            window.scrollTo( 0, 0 );
-            this.setState({userExists: employee.userExists})
-
-          }else{
-            this.props.history.push("/employees")
-          }
-
-        })
-        .catch(error => console.log(error) )
+        employeeService.employeeAdd({ 
+            username,
+            password,
+            name,
+            surname,
+            title,
+            companyPhone,
+            dateStart,
+            birthDate,
+            gender,
+            nationality,
+            phone,
+            identificationNumber,
+            socialSecurityNumber,
+            address,
+            city,
+            postalCode,
+            province,
+            country,
+            emergencyContact,
+            emergencyPhone,
+            managerID,
+            imageUrl  })
+          .then((employee) => {
+            if(employee.userExists){
+              window.scrollTo( 0, 0 );
+              this.setState({userExists: employee.userExists})
+  
+            }else{
+              this.props.history.push("/employees")
+            }
+          })
+          .catch(error => console.log(error) )
 
           
-    }
-
-    handleErrorSubmit = (e, formData, errorInputs) => {
-        console.error(errorInputs)
-    }
-
-    matchPassword = (value) => {
-        return value && value === this.state.password;   
     }
 
     fileOnchange = (event) => {
@@ -213,36 +130,55 @@ class EmployeesEdit extends Component {
       .catch((error) => console.log(error))
     }
 
-    render () {
-      const {  user } = this.props; 
 
+    handleErrorSubmit = (e, formData, errorInputs) => {
+        console.error(errorInputs)
+    }
+
+    matchPassword = (value) => {
+        return value && value === this.state.password;   
+    }
+
+    handleChangeDates = (date) => {
+      this.setState({
+        birthDate: date
+      });
+    }
+
+    componentDidMount = () =>{
+
+      employeeService.employeesList()
+      .then((response) =>{
+          this.setState({employees: response})
+      })
+      .catch((err) => console.log(err))
       
-        
+    }
+
+    render () {
+        const {  user } = this.props; 
+
         return (
-        <div>
+       <div>
           <Navbar pathname={this.props.location.pathname} />
           <div  className="main-content">
             <TopBar {...user} />
             <div className="main-content-padding">
             <div className="header-body mb-5">
                 <h6 className="header-pretitle">
-                Edit
+                Add
                 </h6>
                 <h1 className="header-title">
-                {this.state.name} {this.state.surname}
+                New employee
                 </h1>
             </div>  
-
             <div className="container p-0 m-0" >
-
                 <ValidationForm onSubmit={this.handleSubmit} onErrorSubmit={this.handleErrorSubmit} style={{maxWidth: '800px'}}>
                     <input type="hidden" id="id" name="id" value={this.props.match.params.id} />
-
-
                     <div className="row">
                       <div className="col" style={{maxWidth: '150px'}} >
                           <div className="avatar avatar-xxl">
-                              <img src={this.state.imageUrl}  alt="..." className="avatar-img rounded-circle" />
+                              <img src={this.state.imageUrl === "" ? "https://res.cloudinary.com/fabionunez/image/upload/v1558793227/staff/user_swbbnl.svg": this.state.imageUrl}  alt="..." className="avatar-img rounded-circle" />
                           </div>
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0 pt-3">
@@ -261,9 +197,6 @@ class EmployeesEdit extends Component {
                         <small className="form-text text-muted pt-3">The image file should be under 1Mb</small>
                       </div>
                     </div>
-
-
-
                     <hr className="mt-4 mb-5" />
 
 
@@ -302,14 +235,13 @@ class EmployeesEdit extends Component {
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label className="pb-2">Gender</label>
                         <Radio.RadioGroup name="gender" required valueSelected={this.state.gender} onChange={this.handleChange}>>
-                          
                             <Radio.RadioItem id="male" name="male" value="male" label="Male"  /> 
                             <Radio.RadioItem id="female" name="female" value="female" label="Female" />
                         </Radio.RadioGroup>
                       </div>
                     </div>
-
                     <hr className="mt-4 mb-5" />
+
 
 
                     <div className="row">
@@ -319,7 +251,6 @@ class EmployeesEdit extends Component {
                             value={this.state.title}
                             onChange={this.handleChange}
                         />
-
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="companyPhone">Company phone <small className="text-muted">(optional)</small></label>
@@ -333,6 +264,8 @@ class EmployeesEdit extends Component {
                       </div>
                     </div>
 
+
+
                     <div className="row">
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="username">Email</label>
@@ -345,8 +278,9 @@ class EmployeesEdit extends Component {
                         {this.state.userExists ? <small className="text-danger">User already exist</small>:""}  
                       </div>
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
-                        <label htmlFor="password">New password <small className="text-muted">(optional)</small></label>
-                          <TextInput name="password" id="password" type="password" 
+                          <label htmlFor="password">Create a password</label>
+                          <TextInput name="password" id="password" type="password"
+                              required
                               pattern="(?=.*[A-Z]).{6,}"
                               errorMessage={{required:"Password is required", pattern: "Password should be at least 6 characters and contains at least one upper case letter"}}
                               value={this.state.password}
@@ -354,15 +288,6 @@ class EmployeesEdit extends Component {
                           />
                       </div>
                     </div>
-
-                    <div className="row">
-                      <div className="form-group col-12 pr-lg-4 pr-sm-0">
-  
-                      </div>
-                    </div>
-
-
-
                     <hr className="mt-4 mb-5" />
 
 
@@ -407,9 +332,6 @@ class EmployeesEdit extends Component {
                             />
                       </div>
                     </div>
-
-
-
                     <hr className="mt-4 mb-5" />
 
 
@@ -448,6 +370,7 @@ class EmployeesEdit extends Component {
                       </div>
                     </div>
 
+
                     <div className="row">
                       <div className="form-group col-12 col-md-6 pr-lg-4 pr-sm-0">
                         <label htmlFor="country">Country <small className="text-muted">(optional)</small></label>
@@ -464,9 +387,6 @@ class EmployeesEdit extends Component {
                           />
                       </div>
                     </div>
-
-
-
                     <hr className="mt-4 mb-5" />
 
 
@@ -490,20 +410,20 @@ class EmployeesEdit extends Component {
                             />
                       </div>
                     </div>
-
-
                     <hr className="mt-4 mb-5" />
+
+
 
                     <div className="row">
                       <div className="form-group col-12">
-                          <label htmlFor="managerID">Manager</label>
+                      <label htmlFor="managerID">Manager</label>
                           <SelectGroup name="managerID" id="managerID"
                               required onChange={this.handleChange}>
                               <option value="">-- Select one --</option>
                               { 
                                 this.state.employees.map(employee => <option 
                                                                       value={employee._id} 
-                                                                      key={employee._id}
+                                                                      key={`teamLeaderid-EmployeeAdd-${employee._id}`}
                                                                       selected={this.state.managerID === employee._id.toString() ? "selected" : null}
                                                                       >{employee.name} {employee.surname}  </option>)
                               }
@@ -515,16 +435,14 @@ class EmployeesEdit extends Component {
 
                     <div className="form-group pt-4  mb-6">
                         <button className="btn btn-primary mr-3" style={{width: '100%'}} type="submit" disabled={this.state.submitDisabled ? "disabled": null}>Save changes</button>
-                        
                     </div>
                 </ValidationForm>
-
-                </div>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
         )
     }
 }
 
-export default withAuth(EmployeesEdit);
+export default withAuth(EmployeesAdd);

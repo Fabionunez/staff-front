@@ -3,7 +3,6 @@ import { withAuth } from '../providers/AuthProvider';
 import { Link } from 'react-router-dom';
 
 import teamService from '../lib/team-service';
-import employeeService from '../lib/employee-service';
 
 import IconAdd from 'react-feather/dist/icons/plus';
 import TeamsTable from '../components/teams/TeamsTable';
@@ -80,7 +79,7 @@ class Teams extends Component {
                 <div className="col">
                 <h6 className="header-pretitle">All</h6>
                 <h1 className="header-title">
-                  Teams <span className="badge badge-soft-secondary" style={{"font-size":"10px"}}>{this.state.teams.length}</span>
+                  Teams <span className="badge badge-soft-secondary" style={{"fontSize":"10px"}}>{this.state.teams.length}</span>
                 </h1>
                 </div>
                 {user.isAdmin ?
@@ -107,28 +106,3 @@ class Teams extends Component {
 }
 
 export default withAuth(Teams);
-
-
-
-
-
-
-      {/* <div className="col-auto">  
-        <div className="avatar-group">
-          <a href="profile-posts.html" className="avatar avatar-xs" style={{}}>
-            <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-2.jpg" className="avatar-img rounded-circle" alt="..." />
-          </a>
-          <a href="profile-posts.html" className="avatar avatar-xs" style={{}}>
-            <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-3.jpg" className="avatar-img rounded-circle" alt="..." />
-          </a>
-          <a href="profile-posts.html" className="avatar avatar-xs" style={{}}>
-            <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-4.jpg" className="avatar-img rounded-circle" alt="..." />
-          </a>
-          <a href="profile-posts.html" className="avatar avatar-xs" style={{}}>
-            <img src="https://dashkit.goodthemes.co/assets/img/avatars/profiles/avatar-5.jpg" className="avatar-img rounded-circle" alt="..." />
-          </a>
-          <div className="avatar avatar-xs">
-            <div className="avatar-title rounded-circle">+7</div>
-          </div>
-        </div>
-      </div> */}

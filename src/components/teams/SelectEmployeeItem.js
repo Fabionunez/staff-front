@@ -3,20 +3,6 @@ import React from 'react';
 
 export default function SelectEmployeeItem(props) {
 
-  // console.log(props.usersIds);
-  
-  // function selectAndChangeStyle(id){
-
-  //   console.log(id)
-  //   const check = document.getElementById(id).checked;
-  //   if(check){
-  //     document.getElementById(id).checked = false;
-  //     document.getElementById("li-"+id).classList.remove("itemSelected");
-  //   }else{
-  //     document.getElementById(id).checked = true;
-  //     document.getElementById("li-"+id).classList.add("itemSelected");
-  //   }
-  // }
 
   return (
       <li id={`li-${props._id}`} onClick={() => props.updateSelectEmployees(props._id)}   className={props.usersIds.filter((id) => id.includes(props._id)).length === 1 ? "list-group-item px-0 itemSelected" : "list-group-item px-0" }>         

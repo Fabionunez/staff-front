@@ -15,7 +15,7 @@ class NavBarMenu extends Component{
 
     const pathname = this.props.pathname;
     const {user, logout } = this.props;
-    //console.log(this.props.clickMenuItem)
+    
   return (
     <div className={this.props.classMenu} id="sidebarCollapse">
             <ul className="navbar-nav">
@@ -52,7 +52,7 @@ class NavBarMenu extends Component{
                 </Link>
               </li>
               <li onClick={this.props.clickMenuItem} className="nav-item">
-                <a href="javascript:;" className="nav-link" onClick={logout}>
+                <a href="/" className="nav-link" onClick={logout}>
                   <IconLogout size={25} className="pr-2"/> Logout
                 </a>
               </li>

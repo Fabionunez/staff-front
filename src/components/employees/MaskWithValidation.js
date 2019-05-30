@@ -1,5 +1,5 @@
 import React from 'react';
-import { ValidationForm, BaseFormControl } from "react-bootstrap4-form-validation"
+import { BaseFormControl } from "react-bootstrap4-form-validation"
 import MaskedInput from 'react-text-mask'
 
 //Need to extends BaseFormControl to have the validation feature

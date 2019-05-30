@@ -47,12 +47,12 @@ class Login extends Component {
 
   render () {
       return (
-        <div class="row justify-content-center  border-top border-top-2 border-primary align-items-center p-4" style={{height:"100vh"}} >
-            <div class="col-12 col-md-5 col-xl-4 my-5 text-center">
+        <div className="row justify-content-center  border-top border-top-2 border-primary align-items-center p-4" style={{height:"100vh"}} >
+            <div className="col-12 col-md-5 col-xl-4 my-5 text-center">
                 <img src={Logo} className="text-center pb-5" style={{width:"300px"}} alt="..." />
 
-                <h1 class="display-4 text-center mb-3">Sign in</h1>
-                <p class="text-muted text-center mb-5">Enter in your private dashboard.</p>
+                <h1 className="display-4 text-center mb-3">Sign in</h1>
+                <p className="text-muted text-center mb-5">Enter in your private dashboard.</p>
             <ValidationForm 
                 immediate={this.state.immediate} 
                 className="text-left" 
@@ -80,8 +80,8 @@ class Login extends Component {
                     <button className="btn btn-primary" style={{width: '100%'}}  type="submit" >Sign in</button>
                 </div>
             </ValidationForm>
-            <div class="text-center">
-              <small class="text-muted text-center">
+            <div className="text-center">
+              <small className="text-muted text-center">
                 Are you a human resource manager? <Link to={"/signup"}> Sign up</Link>.
               </small>
             </div>
