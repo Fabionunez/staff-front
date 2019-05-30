@@ -12921,7 +12921,7 @@ button:focus {
 }
 
 .bg-vibrant {
-  background-image: linear-gradient(to bottom right, rgba(18, 111, 235, .9), rgba(114, 3, 225, .9)), url(./img/covers/sidebar-cover.jpg);
+  /* background-image: linear-gradient(to bottom right, rgba(18, 111, 235, .9), rgba(114, 3, 225, .9)), url(./img/covers/sidebar-cover.jpg); */
   background-repeat: no-repeat, no-repeat;
   background-position: 50%, 50%;
   background-size: cover, cover
@@ -12934,7 +12934,7 @@ button:focus {
 }
 
 .bg-hero {
-  background-image: linear-gradient(180deg, rgba(18, 38, 63, .85), rgba(18, 38, 63, .85)), url(./img/covers/header-cover.jpg);
+  /* background-image: linear-gradient(180deg, rgba(18, 38, 63, .85), rgba(18, 38, 63, .85)), url(./img/covers/header-cover.jpg); */
   background-repeat: no-repeat, no-repeat;
   background-position: 50%, 50%;
   background-size: cover, cover
