@@ -13,7 +13,7 @@
     "react-scripts": "2.0.4",
     "react-text-mask": "^5.4.3",
     "react-tooltip": "^3.10.0",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "build-dev": "dotenv -e .env.development react-scripts build",
